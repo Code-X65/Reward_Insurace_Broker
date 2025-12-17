@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import Logo from "../assets/logo.png"
+import { Link, useLocation, useNavigate } from 'react-router-dom'; // Added useNavigate and useLocation
 
 const Navbar = () => {
   const [isDark, setIsDark] = useState(false);
@@ -6,6 +8,8 @@ const Navbar = () => {
   const navRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const lastScrollY = useRef(0);
+  const location = useLocation(); // Get current route
+  const navigate = useNavigate(); // For programmatic navigation
 
   // Toggle theme
   const toggleTheme = () => {
@@ -15,17 +19,28 @@ const Navbar = () => {
     window.dispatchEvent(new Event("themeChange"));
   };
 
-  // ⭐ Smooth scroll handler
-  const handleNavClick = (e, sectionId) => {
+  // ⭐ Updated: Unified navigation handler
+  const handleNavigation = (e, sectionId) => {
     e.preventDefault();
 
+    // If we're not on the homepage, navigate to homepage first
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
+      setIsMobileMenuOpen(false);
+      return;
+    }
+
+    // If we're already on homepage, just scroll
+    handleScrollToSection(sectionId);
+  };
+
+  // ⭐ New: Separate scroll function
+  const handleScrollToSection = (sectionId) => {
     const target = document.getElementById(sectionId);
     if (!target) return;
 
-    // height of your fixed navbar (adjust if needed)
     const navbarHeight = navRef.current?.offsetHeight || 64;
-
-    const targetPosition =
+    const targetPosition = 
       target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
 
     window.scrollTo({
@@ -39,7 +54,22 @@ const Navbar = () => {
     }
   };
 
-  // GSAP-like scroll animation (hide on scroll down / show on scroll up)
+  // ⭐ New: Effect to handle scrolling when arriving from another route
+  useEffect(() => {
+    // Check if we have a scroll target from route state
+    if (location.state?.scrollTo && location.pathname === '/') {
+      // Small delay to ensure DOM is ready
+      const timer = setTimeout(() => {
+        handleScrollToSection(location.state.scrollTo);
+        // Clear the state to prevent re-scrolling on re-render
+        navigate(location.pathname, { replace: true, state: {} });
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [location, navigate]);
+
+  // GSAP-like scroll animation
   useEffect(() => {
     let ticking = false;
 
@@ -81,7 +111,7 @@ const Navbar = () => {
     if (savedTheme === "dark") {
       setIsDark(true);
     }
-  }, [3000]);
+  }, []);
 
   return (
     <div className={isDark ? 'dark' : ''}>
@@ -94,55 +124,59 @@ const Navbar = () => {
           <div className="flex items-center justify-between h-16">
             {/* Left side - Logo and Contact Info */}
             <div className="flex items-center space-x-8">
-              {/* Logo */}
-              <div className="flex items-center space-x-2">
-                <div className="w-10 h-10 bg-green-400 rounded-lg flex items-center justify-center">
-                  <span className="text-green-900 font-bold text-xl">R</span>
+              {/* Logo - Make it clickable to home */}
+              <Link 
+                to="/" 
+                className="flex items-center space-x-2"
+                onClick={(e) => {
+                  if (location.pathname === '/') {
+                    e.preventDefault();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }
+                }}
+              >
+                <div className="w-10 h-10 flex items-center justify-center">
+                  <img src={Logo} alt="Rewards Insurance Logo" />
                 </div>
-                <div className="text-white">
+                <div className="text-blue-700">
                   <div className="font-bold text-lg">Rewards</div>
-                  <div className="text-xs text-gray-300">by Liana Jones</div>
+                  <div className="text-xs">Insurance Brokers Limited</div>
                 </div>
-              </div>
+              </Link>
             </div>
 
             {/* Center - Navigation Links (Desktop) */}
             <div className="hidden md:flex items-center space-x-8">
-              <a
-                href="#home"
-                onClick={(e) => handleNavClick(e, 'home')}   // ⭐
+              <button
+                onClick={(e) => handleNavigation(e, 'home')}   // ⭐ Updated
                 className="text-white hover:text-green-400 transition-colors text-sm font-medium"
               >
                 Home
-              </a>
-              <a
-                href="#about"
-                onClick={(e) => handleNavClick(e, 'about')}  // ⭐
+              </button>
+              <button
+                onClick={(e) => handleNavigation(e, 'about')}  // ⭐ Updated
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 About
-              </a>
-              <a
-                href="#services"
-                onClick={(e) => handleNavClick(e, 'services')} // ⭐
+              </button>
+              <button
+                onClick={(e) => handleNavigation(e, 'services')} // ⭐ Updated
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 Services
-              </a>
-              <a
-                href="#industries"
-                onClick={(e) => handleNavClick(e, 'industries')} // ⭐
+              </button>
+              <Link
+                to="/news" 
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
-                Industries
-              </a>
-              <a
-                href="#contact"
-                onClick={(e) => handleNavClick(e, 'contact')} // ⭐
+                Insights
+              </Link>
+              <button
+                onClick={(e) => handleNavigation(e, 'contact')} // ⭐ Updated
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 Contact
-              </a>
+              </button>
             </div>
 
             {/* Right side - Theme Toggle & CTA Button */}
@@ -195,16 +229,25 @@ const Navbar = () => {
           >
             <div className="flex flex-col h-full p-8">
               <div className="flex justify-between items-center mb-12">
-                {/* Logo in mobile menu */}
-                <div className="flex items-center space-x-2">
+                {/* Logo in mobile menu - clickable to home */}
+                <Link 
+                  to="/" 
+                  className="flex items-center space-x-2"
+                  onClick={() => {
+                    if (location.pathname === '/') {
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                    setIsMobileMenuOpen(false);
+                  }}
+                >
                   <div className="w-10 h-10 bg-green-400 rounded-lg flex items-center justify-center">
                     <span className="text-green-900 font-bold text-xl">R</span>
                   </div>
                   <div className="text-white">
                     <div className="font-bold text-lg">Rewards</div>
-                    <div className="text-xs text-gray-300">by Liana Jones</div>
+                    <div className="text-xs text-gray-300">Insurance Brokers</div>
                   </div>
-                </div>
+                </Link>
                 
                 {/* Close button */}
                 <button
@@ -219,41 +262,43 @@ const Navbar = () => {
 
               {/* Menu items - centered */}
               <nav className="flex-1 flex flex-col justify-center space-y-6">
-                <a
-                  href="#home"
-                  onClick={(e) => handleNavClick(e, 'home')}  // ⭐
-                  className="text-white hover:text-green-400 transition-colors text-3xl font-semibold py-3"
+                <button
+                  onClick={(e) => handleNavigation(e, 'home')}  // ⭐ Updated
+                  className="text-white hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   Home
-                </a>
-                <a
-                  href="#about"
-                  onClick={(e) => handleNavClick(e, 'about')} // ⭐
-                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3"
+                </button>
+                <button
+                  onClick={(e) => handleNavigation(e, 'about')} // ⭐ Updated
+                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   About
-                </a>
-                <a
-                  href="#services"
-                  onClick={(e) => handleNavClick(e, 'services')} // ⭐
-                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3"
+                </button>
+                <button
+                  onClick={(e) => handleNavigation(e, 'services')} // ⭐ Updated
+                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   Services
-                </a>
-                <a
-                  href="#industries"
-                  onClick={(e) => handleNavClick(e, 'industries')} // ⭐
-                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3"
+                </button>
+                <button
+                  onClick={(e) => handleNavigation(e, 'industries')} // ⭐ Updated
+                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   Industries
-                </a>
-                <a
-                  href="#contact"
-                  onClick={(e) => handleNavClick(e, 'contact')} // ⭐
-                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3"
+                </button>
+                <Link
+                  to="/news"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
+                >
+                  Insights
+                </Link>
+                <button
+                  onClick={(e) => handleNavigation(e, 'contact')} // ⭐ Updated
+                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   Contact
-                </a>
+                </button>
               </nav>
 
               {/* Bottom section */}

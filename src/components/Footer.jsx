@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom'; // Added useNavigate and useLocation
+import Logo from "../assets/logo.png"; // Import your logo
 
 const Footer = () => {
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("theme");
     return saved ? saved === "dark" : true;
   });
+
+  const location = useLocation(); // Get current route
+  const navigate = useNavigate(); // For programmatic navigation
 
   // Listen for theme changes
   useEffect(() => {
@@ -32,26 +37,61 @@ const Footer = () => {
     window.dispatchEvent(new Event("themeChange"));
   };
 
+  // ⭐ New: Navigation handler for footer links
+  const handleNavigation = (e, sectionId) => {
+    e.preventDefault();
+
+    // If we're not on the homepage, navigate to homepage first
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollTo: sectionId } });
+      return;
+    }
+
+    // If we're already on homepage, just scroll
+    const target = document.getElementById(sectionId);
+    if (!target) return;
+
+    const navbarHeight = 64; // Approximate navbar height
+    const targetPosition = 
+      target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+
+    window.scrollTo({
+      top: targetPosition,
+      behavior: 'smooth',
+    });
+  };
+
+  // ⭐ New: Scroll to top function when on homepage
+  const handleLogoClick = (e) => {
+    if (location.pathname !== '/') {
+      e.preventDefault();
+      navigate('/');
+    } else {
+      e.preventDefault();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const services = [
-    { name: 'Life Insurance', href: '#life' },
-    { name: 'Motor Insurance', href: '#motor' },
-    { name: 'Property Insurance', href: '#property' },
-    { name: 'Marine Insurance', href: '#marine' },
-    { name: 'Aviation Insurance', href: '#aviation' }
+    { name: 'Life Insurance', href: '#services' },
+    { name: 'Motor Insurance', href: '#services' },
+    { name: 'Property Insurance', href: '#services' },
+    { name: 'Marine Insurance', href: '#services' },
+    { name: 'Aviation Insurance', href: '#services' }
   ];
 
   const company = [
     { name: 'About Us', href: '#about' },
-    { name: 'Our Team', href: '#team' },
-    { name: 'Careers', href: '#careers' },
-    { name: 'News & Updates', href: '#news' },
+    // { name: 'Our Team', href: '#team' },
+    // { name: 'Careers', href: '#careers' },
+    { name: 'News & Updates', href: '/news' },
     { name: 'Contact', href: '#contact' }
   ];
 
   const resources = [
     { name: 'Insurance Guide', href: '#guide' },
-    { name: 'FAQs', href: '#faqs' },
-    { name: 'Claims Process', href: '#claims' },
+    // { name: 'FAQs', href: '#faqs' },
+    // { name: 'Claims Process', href: '#claims' },
     { name: 'Privacy Policy', href: '#privacy' },
     { name: 'Terms of Service', href: '#terms' }
   ];
@@ -102,14 +142,19 @@ const Footer = () => {
       } transition-colors duration-300`}>
         
         {/* Main Footer Content */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
             
             {/* Company Info */}
             <div className="lg:col-span-2">
-              <div className="flex items-center space-x-2 mb-4">
-                <div className="w-10 h-10 bg-green-400 rounded-lg flex items-center justify-center">
-                  <span className="text-gray-900 font-bold text-xl">R</span>
+              {/* Logo Section - Made clickable */}
+              <div 
+                onClick={handleLogoClick}
+                className="flex items-center space-x-2 mb-4 cursor-pointer hover:opacity-80 transition-opacity"
+              >
+                <div className="w-10 h-10 flex items-center justify-center">
+                  {/* ⭐ Applied your logo here */}
+                  <img src={Logo} alt="Rewards Insurance Logo" className="w-full h-full object-contain" />
                 </div>
                 <div className="text-white">
                   <div className="font-bold text-lg">Rewards</div>
@@ -151,12 +196,12 @@ const Footer = () => {
               <ul className="space-y-2">
                 {services.map((service) => (
                   <li key={service.name}>
-                    <a
-                      href={service.href}
-                      className="text-gray-400 hover:text-green-400 transition-colors text-sm"
+                    <button
+                      onClick={(e) => handleNavigation(e, 'services')}
+                      className="text-gray-400 hover:text-green-400 transition-colors text-sm text-left w-full"
                     >
                       {service.name}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -166,16 +211,33 @@ const Footer = () => {
             <div>
               <h3 className="text-white font-bold text-lg mb-4">Company</h3>
               <ul className="space-y-2">
-                {company.map((item) => (
-                  <li key={item.name}>
-                    <a
-                      href={item.href}
-                      className="text-gray-400 hover:text-green-400 transition-colors text-sm"
-                    >
-                      {item.name}
-                    </a>
-                  </li>
-                ))}
+                {company.map((item) => {
+                  if (item.name === 'News & Updates') {
+                    return (
+                      <li key={item.name}>
+                        <a
+                          href={item.href}
+                          className="text-gray-400 hover:text-green-400 transition-colors text-sm"
+                        >
+                          {item.name}
+                        </a>
+                      </li>
+                    );
+                  }
+                  
+                  // Handle scroll links
+                  const sectionId = item.href.replace('/#', '');
+                  return (
+                    <li key={item.name}>
+                      <button
+                        onClick={(e) => handleNavigation(e, sectionId)}
+                        className="text-gray-400 hover:text-green-400 transition-colors text-sm text-left w-full"
+                      >
+                        {item.name}
+                      </button>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
 
@@ -185,12 +247,15 @@ const Footer = () => {
               <ul className="space-y-2">
                 {resources.map((item) => (
                   <li key={item.name}>
-                    <a
-                      href={item.href}
-                      className="text-gray-400 hover:text-green-400 transition-colors text-sm"
+                    <button
+                      onClick={(e) => {
+                        const sectionId = item.href.replace('#', '');
+                        handleNavigation(e, sectionId);
+                      }}
+                      className="text-gray-400 hover:text-green-400 transition-colors text-sm text-left w-full"
                     >
                       {item.name}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -231,6 +296,8 @@ const Footer = () => {
                   <a
                     key={social.name}
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-green-400 text-gray-400 hover:text-gray-900 flex items-center justify-center transition-all duration-300 hover:scale-110"
                     aria-label={social.name}
                   >

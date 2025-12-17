@@ -140,7 +140,7 @@ const ContactSection = () => {
     <div className={isDark ? 'dark' : ''} id="contact">
       <section 
         ref={sectionRef}
-        className={`relative py-16 md:py-24 lg:py-32 overflow-hidden ${
+        className={`relative py-8 md:py-10 lg:py-12 overflow-hidden ${
           isDark ? 'bg-gray-900' : 'bg-white'
         } transition-colors duration-300`}
       >

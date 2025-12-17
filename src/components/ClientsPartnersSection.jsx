@@ -1,4 +1,23 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import img01 from '../assets/partners/vertias.png'
+import img02 from '../assets/partners/img02.webp'
+import img03 from '../assets/partners/img03.png'
+import img04 from '../assets/partners/img04.png'
+import img05 from '../assets/partners/img05.png'
+import img06 from '../assets/partners/img06.png'
+import img07 from '../assets/partners/img07.png'
+import img08 from '../assets/partners/img08.png'
+import img09 from '../assets/partners/img09.webp'
+import img10 from '../assets/partners/img10.webp'
+import img11 from '../assets/partners/img11.png'
+import img12 from '../assets/partners/img12.png'
+import img13 from '../assets/partners/img13.png'
+import img14 from '../assets/partners/img14.jpg'
+import img15 from '../assets/partners/img15.png'
+import img16 from '../assets/partners/img16.png'
+import img17 from '../assets/partners/img17.jpg'
+import img18 from '../assets/partners/img18.png'
+import img19 from '../assets/partners/img19.png'
 
 const ClientsPartnersSection = () => {
   const [isDark, setIsDark] = useState(() => {
@@ -10,6 +29,11 @@ const ClientsPartnersSection = () => {
   const headerRef = useRef(null);
   const ctaRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
+  
+  // Refs for carousel control
+  const carouselRef = useRef(null);
+  const animationRef = useRef(null);
+  const isPausedRef = useRef(false);
 
   // Listen for theme changes
   useEffect(() => {
@@ -70,41 +94,83 @@ const ClientsPartnersSection = () => {
     };
   }, [hasAnimated]);
 
-  // Client company logos (using professional business/corporate images)
-  const clients = [
-    { name: 'First Bank Nigeria', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80' },
-    { name: 'Dangote Group', image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=80' },
-    { name: 'MTN Nigeria', image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&q=80' },
-    { name: 'Access Bank', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80' },
-    { name: 'Julius Berger', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80' },
-    { name: 'Nigerian Breweries', image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&q=80' },
-    { name: 'Zenith Bank', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80' },
-    { name: 'Nestle Nigeria', image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&q=80' },
-  ];
-
   // Insurance partner logos
   const partners = [
-    { name: 'AXA Mansard', image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=80' },
-    { name: 'Leadway Assurance', image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=400&q=80' },
-    { name: 'AIICO Insurance', image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&q=80' },
-    { name: 'Custodian Insurance', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80' },
-    { name: 'NEM Insurance', image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&q=80' },
-    { name: 'Cornerstone Insurance', image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=80' },
-    { name: 'Continental Re', image: 'https://images.unsplash.com/photo-1560179707-f14e90ef3623?w=400&q=80' },
-    { name: 'Africa Re', image: 'https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&q=80' },
-    { name: 'Sovereign Trust', image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=400&q=80' },
-    { name: 'Mutual Benefits', image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=80' },
+    { name: '', image: img01 },
+    { name: '', image: img02 },
+    { name: '', image: img03 },
+    { name: '', image: img04 },
+    { name: '', image: img05 },
+    { name: '', image: img06 },
+    { name: '', image: img07 },
+    { name: '', image: img08 },
+    { name: '', image: img09 },
+    { name: '', image: img10 },
+    { name: '', image: img11 },
+    { name: '', image: img12 },
+    { name: '', image: img13 },
+    { name: '', image: img14 },
+    { name: '', image: img15 },
+    { name: '', image: img16 },
+    { name: '', image: img17 },
+    { name: '', image: img18 },
+    { name: '', image: img19 },
   ];
 
-  // Duplicate arrays for seamless infinite scroll
-  const duplicatedClients = [...clients, ...clients];
-  const duplicatedPartners = [...partners, ...partners];
+  // Create duplicated array for seamless infinite effect
+  const duplicatedPartners = [...partners, ...partners, ...partners];
+
+  // Smooth animation using requestAnimationFrame
+  const animateCarousel = useCallback(() => {
+    if (!carouselRef.current || isPausedRef.current) {
+      animationRef.current = requestAnimationFrame(animateCarousel);
+      return;
+    }
+
+    const carousel = carouselRef.current;
+    const scrollSpeed = 0.5; // pixels per frame
+    
+    carousel.scrollLeft += scrollSpeed;
+    
+    // Reset to create infinite effect
+    if (carousel.scrollLeft >= carousel.scrollWidth / 3) {
+      carousel.scrollLeft = 0;
+    }
+    
+    animationRef.current = requestAnimationFrame(animateCarousel);
+  }, []);
+
+  // Start animation on mount and clean up
+  useEffect(() => {
+    animationRef.current = requestAnimationFrame(animateCarousel);
+    
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [animateCarousel]);
+
+  // Handle hover events
+  const handleMouseEnter = () => {
+    isPausedRef.current = true;
+    if (carouselRef.current) {
+      carouselRef.current.style.scrollBehavior = 'smooth';
+    }
+  };
+
+  const handleMouseLeave = () => {
+    isPausedRef.current = false;
+    if (carouselRef.current) {
+      carouselRef.current.style.scrollBehavior = 'auto';
+    }
+  };
 
   return (
     <div className={isDark ? 'dark' : ''}>
       <section 
         ref={sectionRef}
-        className={`relative py-4 md:py-10 lg:py-4 overflow-hidden ${
+        className={`relative py-4 md:py-10 lg:py-14 overflow-hidden ${
           isDark ? 'bg-slate-950' : 'bg-gray-50'
         } transition-colors duration-300`}
       >
@@ -113,83 +179,6 @@ const ClientsPartnersSection = () => {
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
 
         <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
-          <div 
-            ref={headerRef}
-            className="text-center md-4 opacity-0 transition-all duration-1000"
-            style={{ transform: 'translateY(50px)' }}
-          >
-            <div className="inline-block mb-4">
-              <span className="text-green-500 text-sm font-bold tracking-wider uppercase px-4 py-2 rounded-full bg-green-500/10">
-                Trusted Partnerships
-              </span>
-            </div>
-            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-6 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
-              Trusted by Industry <span className="text-green-500">Leaders</span>
-            </h2>
-            <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>
-              We partner with Nigeria's most respected organizations and insurance providers to deliver exceptional coverage and service.
-            </p>
-          </div>
-
-          {/* Clients Carousel */}
-          <div className="mb-16 md:mb-24">
-            <div className="text-center mb-8">
-              <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${
-                isDark ? 'text-gray-500' : 'text-gray-400'
-              }`}>
-                OUR VALUED CLIENTS
-              </h3>
-            </div>
-
-            {/* Scrolling Container */}
-            <div className="relative overflow-hidden py-8">
-              {/* Gradient Overlays */}
-              <div className={`absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none ${
-                isDark 
-                  ? 'bg-gradient-to-r from-gray-900 to-transparent' 
-                  : 'bg-gradient-to-r from-gray-50 to-transparent'
-              }`} />
-              <div className={`absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none ${
-                isDark 
-                  ? 'bg-gradient-to-l from-gray-900 to-transparent' 
-                  : 'bg-gradient-to-l from-gray-50 to-transparent'
-              }`} />
-
-              {/* Sliding Track */}
-              <div className="flex animate-[scroll_30s_linear_infinite] hover:pause">
-                {duplicatedClients.map((client, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 mx-4 group"
-                    style={{ width: '200px' }}
-                  >
-                    <div className={`relative h-28 rounded-2xl overflow-hidden transition-all duration-300 ${
-                      isDark 
-                        ? 'bg-gray-800 border border-gray-700' 
-                        : 'bg-white border border-gray-200 shadow-sm'
-                    } group-hover:scale-105 group-hover:shadow-xl`}>
-                      <img
-                        src={client.image}
-                        alt={client.name}
-                        className="w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-4">
-                        <p className="text-white text-sm font-semibold truncate w-full">
-                          {client.name}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-
           {/* Decorative Divider */}
           <div className="relative mb-16 md:mb-24">
             <div className={`h-px w-full ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`} />
@@ -214,84 +203,66 @@ const ClientsPartnersSection = () => {
               </h3>
             </div>
 
-            {/* Scrolling Container - Reverse Direction */}
-            <div className="relative overflow-hidden py-8">
-              {/* Gradient Overlays */}
-              <div className={`absolute left-0 top-0 bottom-0 w-32 z-10 pointer-events-none ${
-                isDark 
-                  ? 'bg-gradient-to-r from-gray-900 to-transparent' 
-                  : 'bg-gradient-to-r from-gray-50 to-transparent'
-              }`} />
-              <div className={`absolute right-0 top-0 bottom-0 w-32 z-10 pointer-events-none ${
-                isDark 
-                  ? 'bg-gradient-to-l from-gray-900 to-transparent' 
-                  : 'bg-gradient-to-l from-gray-50 to-transparent'
-              }`} />
-
-              {/* Sliding Track - Reverse */}
-              <div className="flex animate-[scroll-reverse_35s_linear_infinite] hover:pause">
-                {duplicatedPartners.map((partner, index) => (
-                  <div
-                    key={index}
-                    className="flex-shrink-0 mx-4 group"
-                    style={{ width: '180px' }}
-                  >
-                    <div className={`relative h-32 rounded-2xl overflow-hidden transition-all duration-300 ${
-                      isDark 
-                        ? 'bg-gray-800 border border-gray-700' 
-                        : 'bg-white border border-gray-200 shadow-sm'
-                    } group-hover:scale-105 group-hover:shadow-xl`}>
-                      <img
-                        src={partner.image}
-                        alt={partner.name}
-                        className="w-full h-full object-cover opacity-50 group-hover:opacity-70 transition-opacity"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-green-900/70 to-transparent flex items-end p-4">
-                        <p className="text-white text-xs font-semibold truncate w-full">
-                          {partner.name}
-                        </p>
-                      </div>
-                      {/* Badge */}
-                      <div className="absolute top-2 right-2">
-                        <div className="bg-green-500 text-white text-[10px] font-bold px-2 py-1 rounded-full">
-                          PARTNER
-                        </div>
+            {/* Improved Carousel Container */}
+            <div className="relative">
+              {/* Gradient overlays for smooth edges */}
+              
+              
+              {/* Carousel with improved scrolling */}
+              <div 
+                ref={carouselRef}
+                className="flex overflow-x-hidden scrollbar-hide py-8"
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                style={{ 
+                  scrollbarWidth: 'none',
+                  msOverflowStyle: 'none'
+                }}
+              >
+                <div className="flex gap-8">
+                  {duplicatedPartners.map((partner, index) => (
+                    <div
+                      key={index}
+                      className="flex-shrink-0 px-4 group transition-all duration-300 scale-120 hover:scale-125"
+                      style={{ width: 'clamp(140px, 15vw, 180px)' }}
+                    >
+                      <div className={`relative h-28 sm:h-32 overflow-hidden transition-all duration-300 rounded-xl`}>
+                        <img
+                          src={partner.image}
+                          alt={partner.name}
+                          className="w-full h-full object-contain p-1 opacity-80 group-hover:opacity-100 transition-all duration-300 group-hover:scale-110"
+                          loading="lazy"
+                          draggable="false"
+                        />
+                        {/* Hover effect overlay */}
+                       
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
+
           </div>
 
         </div>
 
-        {/* CSS Animations */}
-        <style>{`
-          @keyframes scroll {
-            0% {
-              transform: translateX(0);
-            }
-            100% {
-              transform: translateX(-50%);
-            }
+        {/* Custom Scrollbar Hide */}
+        <style jsx>{`
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
           }
-
-          @keyframes scroll-reverse {
-            0% {
-              transform: translateX(-50%);
-            }
-            100% {
-              transform: translateX(0);
-            }
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
           }
-
-          .pause {
-            animation-play-state: paused;
-          }
-
-          .hover\\:pause:hover {
-            animation-play-state: paused;
+          
+          @media (prefers-reduced-motion: reduce) {
+            * {
+              animation-duration: 0.01ms !important;
+              animation-iteration-count: 1 !important;
+              transition-duration: 0.01ms !important;
+            }
           }
         `}</style>
       </section>

@@ -7,6 +7,35 @@ const InsuranceHero = () => {
     const saved = localStorage.getItem("theme");
     return saved ? saved === "dark" : true;
   });
+  const [insuranceType, setInsuranceType] = useState('');
+
+// 4. Add these imports at the top for insurance data
+const lifeInsuranceOptions = [
+  'Group Life Insurance',
+  'Individual Life Insurance',
+  'Group Personal',
+  'Annuity Life Policy'
+];
+
+const nonLifeInsuranceOptions = [
+  'Motor Insurance',
+  'Fire and Special Perils',
+  'Consequential Loss Insurance',
+  'Combined All Risk Insurance',
+  'Burglary and House Breaking Insurance',
+  'Goods In-Transit Insurance',
+  'Cash In Transit Insurance',
+  'Fidelity Guarantee Insurance',
+  'Public Liability Insurance',
+  'Product Liability Insurance',
+  'Contractor All Risk Insurance',
+  'Engineering Insurance',
+  'Industrial All Risk',
+  'Professional Indemnity Insurance',
+  'Marine Insurance',
+  'Aviation Insurance',
+  'Energy Insurance'
+];
 
   useEffect(() => {
     const handleStorage = (e) => {
@@ -41,13 +70,16 @@ const InsuranceHero = () => {
 
   // --- 2. STATE & REFS ---
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
-    message: ''
-  });
+const [formData, setFormData] = useState({
+  name: '',
+  email: '',
+  phone: '',
+  countryCode: '+234', // Default to Nigeria
+  insuranceType: '',
+  service: '',
+  message: ''
+});
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
 
@@ -99,21 +131,55 @@ const InsuranceHero = () => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsSubmitting(false);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+  
+  try {
+    const response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        access_key: 'YOUR_WEB3FORMS_ACCESS_KEY_HERE', // Replace with your actual key
+        name: formData.name,
+        email: formData.email,
+        phone: `${formData.countryCode}${formData.phone}`,
+        insurance_type: formData.insuranceType,
+        interest: formData.service,
+        message: formData.message || 'Quote request'
+      })
+    });
+    
+    const result = await response.json();
+    
+    if (result.success) {
       setShowSuccess(true);
-      setFormData({ name: '', email: '', phone: '', service: '', message: '' });
+      setFormData({ 
+        name: '', 
+        email: '', 
+        phone: '', 
+        countryCode: '+234',
+        insuranceType: '',
+        service: '', 
+        message: '' 
+      });
       setTimeout(() => setShowSuccess(false), 5000);
-    }, 1500);
-  };
+    }
+  } catch (error) {
+    console.error('Form submission error:', error);
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   const toggleTheme = () => {
     setIsDark(!isDark);
   };
+
+  
 
   return (
     <div className={`relative min-h-screen font-sans selection:bg-green-300 selection:text-green-900 ${isDark ? 'dark' : ''}`}>
@@ -219,10 +285,10 @@ const InsuranceHero = () => {
                 ref={buttonsRef}
                 className="flex flex-col sm:flex-row gap-4 opacity-0 translate-y-8 transition-all duration-1000 ease-out"
               >
-                <button className="group px-4 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)] flex items-center justify-center space-x-2">
+                <a href='#contact' className="group px-4 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)] flex items-center justify-center space-x-2">
                   <span>Request a Quote</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </button>
+                </a>
                 <button className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 ${
                   isDark 
                     ? 'border-slate-700 text-white hover:bg-slate-800' 
@@ -285,17 +351,28 @@ const InsuranceHero = () => {
                     </p>
                   </div>
 
-                  {showSuccess ? (
-                    <div className="h-[400px] flex flex-col items-center justify-center text-center animate-fadeIn">
-                      <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                        <CheckCircle className="w-8 h-8 text-green-600" />
-                      </div>
-                      <h4 className={`text-xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>Request Received!</h4>
-                      <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-                        One of our friendly agents will contact you shortly to discuss your options.
-                      </p>
-                    </div>
-                  ) : (
+               {/* 6. Replace the success message with this updated version */}
+{showSuccess ? (
+  <div className="h-[400px] flex flex-col items-center justify-center text-center animate-fadeIn">
+    <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-6 animate-bounce">
+      <CheckCircle className="w-10 h-10 text-green-600" />
+    </div>
+    <h4 className={`text-2xl font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
+      Quote Request Received!
+    </h4>
+    <p className={`text-base mb-2 ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+      Thank you for choosing us for your insurance needs.
+    </p>
+    <p className={`text-sm max-w-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+      Our licensed insurance specialists will review your request and contact you within 24 hours to discuss the best coverage options tailored to your needs.
+    </p>
+    <div className={`mt-6 p-4 rounded-xl ${isDark ? 'bg-gray-700/50' : 'bg-gray-50'}`}>
+      <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+        Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 XXX XXX XXXX</span>
+      </p>
+    </div>
+  </div>
+) : (
                     <form className="space-y-4" onSubmit={handleSubmit}>
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-1 text-left">
@@ -332,48 +409,102 @@ const InsuranceHero = () => {
                         </div>
                       </div>
 
-                      <div className="space-y-1 text-left">
-                        <label className={`text-xs font-semibold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Phone</label>
-                        <input
-                          type="tel"
-                          name="phone"
-                          placeholder="(555) 123-4567"
-                          value={formData.phone}
-                          onChange={handleInputChange}
-                          className={`w-full px-4 py-3 rounded-xl outline-none border-2 transition-all ${
-                            isDark 
-                              ? 'bg-gray-700/50 border-gray-600 focus:border-green-500 text-white placeholder-gray-500' 
-                              : 'bg-gray-50 border-gray-100 focus:border-green-400 text-gray-900 placeholder-gray-400 focus:bg-white'
-                          }`}
-                        />
-                      </div>
+                  {/* Insurance Type Selection - NEW */}
+<div className="space-y-1 text-left">
+  <label className={`text-xs font-semibold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Insurance Type</label>
+  <div className="relative">
+    <select
+      required
+      name="insuranceType"
+      value={formData.insuranceType}
+      onChange={(e) => {
+        setFormData({ ...formData, insuranceType: e.target.value, service: '' });
+      }}
+      className={`w-full px-4 py-3 rounded-xl outline-none border-2 appearance-none transition-all ${
+        isDark 
+          ? 'bg-gray-700/50 border-gray-600 focus:border-green-500 text-white' 
+          : 'bg-gray-50 border-gray-100 focus:border-green-400 text-gray-900 focus:bg-white'
+      }`}
+    >
+      <option value="">Select Insurance Type</option>
+      <option value="life">Life Insurance</option>
+      <option value="non-life">Non-Life Insurance</option>
+    </select>
+    <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+    </div>
+  </div>
+</div>
 
-                      <div className="space-y-1 text-left">
-                        <label className={`text-xs font-semibold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Interest</label>
-                        <div className="relative">
-                          <select
-                            name="service"
-                            value={formData.service}
-                            onChange={handleInputChange}
-                            className={`w-full px-4 py-3 rounded-xl outline-none border-2 appearance-none transition-all ${
-                              isDark 
-                                ? 'bg-gray-700/50 border-gray-600 focus:border-green-500 text-white' 
-                                : 'bg-gray-50 border-gray-100 focus:border-green-400 text-gray-900 focus:bg-white'
-                            }`}
-                          >
-                            <option value="">I'm interested in...</option>
-                            <option value="life">Commercial Insurance</option>
-                            <option value="health"> General Liability</option>
-                            <option value="auto">Professional Liability,</option>
-                            <option value="home">Workers Compensation</option>
-                            <option value="business">Cyber Insurance</option>
-                          </select>
-                          <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
-                          </div>
-                        </div>
-                      </div>
+{/* Phone with Country Code - UPDATED */}
+<div className="space-y-1 text-left">
+  <label className={`text-xs font-semibold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Phone</label>
+  <div className="flex gap-2">
+    <select
+      name="countryCode"
+      value={formData.countryCode}
+      onChange={handleInputChange}
+      className={`px-3 py-3 rounded-xl outline-none border-2 transition-all ${
+        isDark 
+          ? 'bg-gray-700/50 border-gray-600 focus:border-green-500 text-white' 
+          : 'bg-gray-50 border-gray-100 focus:border-green-400 text-gray-900 focus:bg-white'
+      }`}
+    >
+      <option value="+234">🇳🇬 +234</option>
+      <option value="+1">🇺🇸 +1</option>
+      <option value="+44">🇬🇧 +44</option>
+      <option value="+971">🇦🇪 +971</option>
+      <option value="+27">🇿🇦 +27</option>
+      <option value="+254">🇰🇪 +254</option>
+      <option value="+233">🇬🇭 +233</option>
+    </select>
+    <input
+      required
+      type="tel"
+      name="phone"
+      placeholder="8012345678"
+      value={formData.phone}
+      onChange={handleInputChange}
+      className={`flex-1 px-4 py-3 rounded-xl outline-none border-2 transition-all ${
+        isDark 
+          ? 'bg-gray-700/50 border-gray-600 focus:border-green-500 text-white placeholder-gray-500' 
+          : 'bg-gray-50 border-gray-100 focus:border-green-400 text-gray-900 placeholder-gray-400 focus:bg-white'
+      }`}
+    />
+  </div>
+</div>
 
+{/* Interest - UPDATED to show based on insurance type */}
+<div className="space-y-1 text-left">
+  <label className={`text-xs font-semibold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Interest</label>
+  <div className="relative">
+    <select
+      required
+      name="service"
+      value={formData.service}
+      onChange={handleInputChange}
+      disabled={!formData.insuranceType}
+      className={`w-full px-4 py-3 rounded-xl outline-none border-2 appearance-none transition-all ${
+        isDark 
+          ? 'bg-gray-700/50 border-gray-600 focus:border-green-500 text-white disabled:opacity-50' 
+          : 'bg-gray-50 border-gray-100 focus:border-green-400 text-gray-900 focus:bg-white disabled:opacity-50'
+      }`}
+    >
+      <option value="">
+        {formData.insuranceType ? "Select your interest..." : "Select insurance type first"}
+      </option>
+      {formData.insuranceType === 'life' && lifeInsuranceOptions.map(option => (
+        <option key={option} value={option}>{option}</option>
+      ))}
+      {formData.insuranceType === 'non-life' && nonLifeInsuranceOptions.map(option => (
+        <option key={option} value={option}>{option}</option>
+      ))}
+    </select>
+    <div className={`absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path></svg>
+    </div>
+  </div>
+</div>
                       <button
                         type="submit"
                         disabled={isSubmitting}
