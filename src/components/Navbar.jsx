@@ -117,7 +117,7 @@ const Navbar = () => {
     <div className={isDark ? 'dark' : ''}>
       <nav 
         ref={navRef}
-        className={`${isDark ? 'bg-gray-900' : 'bg-green-900'} transition-all duration-500 fixed top-0 left-0 right-0 z-40 shadow-lg`}
+        className={`${isDark ? 'bg-gray-900' : 'bg-green-900'} transition-all duration-500 fixed top-0 left-0 right-0 z-20 shadow-lg`}
         style={{ transform: 'translateY(0)', opacity: 1 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -224,7 +224,7 @@ const Navbar = () => {
             ref={mobileMenuRef}
             className={`md:hidden fixed inset-0 ${
               isDark ? 'bg-gray-900' : 'bg-green-900/70'
-            } transform transition-transform duration-300 ease-out overflow-y-auto h-screen z-50
+            } transform transition-transform duration-300 ease-out overflow-y-auto h-screen z-20
             ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
           >
             <div className="flex flex-col h-full p-8">
