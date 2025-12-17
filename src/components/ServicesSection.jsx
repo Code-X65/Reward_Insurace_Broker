@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useForm } from '../context/FormContext'; 
 
 const ServicesSection = () => {
+  const { openForm } = useForm();
   const [isDark, setIsDark] = useState(() => {
     const saved = localStorage.getItem("theme");
     return saved ? saved === "dark" : true;
@@ -421,16 +423,13 @@ const ServiceCard = ({ service, index }) => (
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
-                  <button className="w-full sm:w-auto px-6 md:px-8 py-3 rounded-lg font-semibold transition-all bg-gradient-to-r from-green-500 to-green-500 hover:shadow-lg hover:shadow-green-500/25 text-white">
-                    Get Free Quote
-                  </button>
-                  <button className={`w-full sm:w-auto px-6 md:px-8 py-3 rounded-lg font-semibold transition-all ${
-                    isDark 
-                      ? 'bg-gray-800 hover:bg-gray-700 text-white border border-gray-700' 
-                      : 'bg-white hover:bg-gray-50 text-gray-900 border border-gray-300'
-                  }`}>
-                    Schedule Call
-                  </button>
+                   <button 
+    onClick={openForm}
+    className="w-full sm:w-auto px-6 md:px-8 py-3 rounded-lg font-semibold transition-all bg-gradient-to-r from-green-500 to-green-500 hover:shadow-lg hover:shadow-green-500/25 text-white"
+  >
+    Get Free Quote
+  </button>
+               
                 </div>
               </div>
             </div>

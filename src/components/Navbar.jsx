@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Logo from "../assets/logo.png"
-import { Link, useLocation, useNavigate } from 'react-router-dom'; // Added useNavigate and useLocation
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useForm } from '../context/FormContext';
 
 const Navbar = () => {
   const [isDark, setIsDark] = useState(false);
@@ -8,8 +9,9 @@ const Navbar = () => {
   const navRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const lastScrollY = useRef(0);
-  const location = useLocation(); // Get current route
-  const navigate = useNavigate(); // For programmatic navigation
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { openForm } = useForm();
 
   // Toggle theme
   const toggleTheme = () => {
@@ -19,7 +21,7 @@ const Navbar = () => {
     window.dispatchEvent(new Event("themeChange"));
   };
 
-  // ⭐ Updated: Unified navigation handler
+  // Unified navigation handler
   const handleNavigation = (e, sectionId) => {
     e.preventDefault();
 
@@ -34,7 +36,7 @@ const Navbar = () => {
     handleScrollToSection(sectionId);
   };
 
-  // ⭐ New: Separate scroll function
+  // Separate scroll function
   const handleScrollToSection = (sectionId) => {
     const target = document.getElementById(sectionId);
     if (!target) return;
@@ -54,7 +56,7 @@ const Navbar = () => {
     }
   };
 
-  // ⭐ New: Effect to handle scrolling when arriving from another route
+  // Effect to handle scrolling when arriving from another route
   useEffect(() => {
     // Check if we have a scroll target from route state
     if (location.state?.scrollTo && location.pathname === '/') {
@@ -68,6 +70,13 @@ const Navbar = () => {
       return () => clearTimeout(timer);
     }
   }, [location, navigate]);
+
+  // Handle Get Free Quote button click
+  const handleGetQuoteClick = (e) => {
+    e.preventDefault();
+    openForm();
+    setIsMobileMenuOpen(false);
+  };
 
   // GSAP-like scroll animation
   useEffect(() => {
@@ -106,6 +115,7 @@ const Navbar = () => {
     };
   }, []);
 
+  // Initialize theme from localStorage
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "dark") {
@@ -117,7 +127,7 @@ const Navbar = () => {
     <div className={isDark ? 'dark' : ''}>
       <nav 
         ref={navRef}
-        className={`${isDark ? 'bg-gray-900' : 'bg-green-900'} transition-all duration-500 fixed top-0 left-0 right-0 z-20 shadow-lg`}
+        className={`${isDark ? 'bg-gray-900' : 'bg-green-900'} transition-all duration-500 fixed top-0 left-0 right-0 z-40 shadow-lg`}
         style={{ transform: 'translateY(0)', opacity: 1 }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,19 +158,19 @@ const Navbar = () => {
             {/* Center - Navigation Links (Desktop) */}
             <div className="hidden md:flex items-center space-x-8">
               <button
-                onClick={(e) => handleNavigation(e, 'home')}   // ⭐ Updated
+                onClick={(e) => handleNavigation(e, 'home')}
                 className="text-white hover:text-green-400 transition-colors text-sm font-medium"
               >
                 Home
               </button>
               <button
-                onClick={(e) => handleNavigation(e, 'about')}  // ⭐ Updated
+                onClick={(e) => handleNavigation(e, 'about')}
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 About
               </button>
               <button
-                onClick={(e) => handleNavigation(e, 'services')} // ⭐ Updated
+                onClick={(e) => handleNavigation(e, 'services')}
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 Services
@@ -172,7 +182,7 @@ const Navbar = () => {
                 Insights
               </Link>
               <button
-                onClick={(e) => handleNavigation(e, 'contact')} // ⭐ Updated
+                onClick={(e) => handleNavigation(e, 'contact')}
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 Contact
@@ -199,7 +209,10 @@ const Navbar = () => {
               </button>
 
               {/* Get Free Quote Button */}
-              <button className="hidden md:block bg-green-400 hover:bg-green-500 text-green-900 font-semibold px-6 py-2 rounded-lg transition-colors text-sm">
+              <button 
+                onClick={handleGetQuoteClick}
+                className="hidden md:block bg-green-400 hover:bg-green-500 text-green-900 font-semibold px-6 py-2 rounded-lg transition-colors text-sm"
+              >
                 Get Free Quote
               </button>
 
@@ -224,7 +237,7 @@ const Navbar = () => {
             ref={mobileMenuRef}
             className={`md:hidden fixed inset-0 ${
               isDark ? 'bg-gray-900' : 'bg-green-900/70'
-            } transform transition-transform duration-300 ease-out overflow-y-auto h-screen z-20
+            } transform transition-transform duration-300 ease-out scrollbar-hide h-screen z-40
             ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
           >
             <div className="flex flex-col h-full p-8">
@@ -263,28 +276,22 @@ const Navbar = () => {
               {/* Menu items - centered */}
               <nav className="flex-1 flex flex-col justify-center space-y-6">
                 <button
-                  onClick={(e) => handleNavigation(e, 'home')}  // ⭐ Updated
+                  onClick={(e) => handleNavigation(e, 'home')}
                   className="text-white hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   Home
                 </button>
                 <button
-                  onClick={(e) => handleNavigation(e, 'about')} // ⭐ Updated
+                  onClick={(e) => handleNavigation(e, 'about')}
                   className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   About
                 </button>
                 <button
-                  onClick={(e) => handleNavigation(e, 'services')} // ⭐ Updated
+                  onClick={(e) => handleNavigation(e, 'services')}
                   className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   Services
-                </button>
-                <button
-                  onClick={(e) => handleNavigation(e, 'industries')} // ⭐ Updated
-                  className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
-                >
-                  Industries
                 </button>
                 <Link
                   to="/news"
@@ -294,7 +301,7 @@ const Navbar = () => {
                   Insights
                 </Link>
                 <button
-                  onClick={(e) => handleNavigation(e, 'contact')} // ⭐ Updated
+                  onClick={(e) => handleNavigation(e, 'contact')}
                   className="text-gray-300 hover:text-green-400 transition-colors text-3xl font-semibold py-3 text-left"
                 >
                   Contact
@@ -303,7 +310,10 @@ const Navbar = () => {
 
               {/* Bottom section */}
               <div className="space-y-4">
-                <button className="w-full bg-green-400 hover:bg-green-500 text-green-900 font-bold px-8 py-4 rounded-lg transition-colors text-lg">
+                <button 
+                  onClick={handleGetQuoteClick}
+                  className="w-full bg-green-400 hover:bg-green-500 text-green-900 font-bold px-8 py-4 rounded-lg transition-colors text-lg"
+                >
                   Get Free Quote
                 </button>
                 

@@ -4,22 +4,24 @@ import Navbar from './components/Navbar'
 import HomePage from './Pages/HomePage'
 import Footer from './components/Footer'
 import News from './Pages/News'
+import QuoteForm from './components/Qouteform'  // Add this import
+import { FormProvider } from '../src/context/FormContext';
 
 const App = () => {
   return (
-  <>
-  <div> 
-
-    <Router basename='Reward_Insurace_Broker'>
-      <Navbar/> 
-      <Routes>
-        <Route index element={<HomePage />}/>
-        <Route path='/news' element={<News />}/>
-      </Routes>
-      <Footer/>
-    </Router>
-  </div>
-  </>
+    <div> 
+      <FormProvider>
+        <Router basename='Reward_Insurace_Broker'>
+          <Navbar/> 
+          <QuoteForm />  {/* Add this line */}
+          <Routes>
+            <Route index element={<HomePage />}/>
+            <Route path='/news' element={<News />}/>
+          </Routes>
+          <Footer/>
+        </Router>
+      </FormProvider>
+    </div>
   )
 }
 

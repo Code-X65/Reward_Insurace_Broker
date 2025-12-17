@@ -297,18 +297,18 @@ const handleSubmit = async (e) => {
                 ref={buttonsRef}
                 className="flex flex-col sm:flex-row gap-4 opacity-0 translate-y-8 transition-all duration-1000 ease-out"
               >
-                <a href='#contact' className="group px-4 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)] flex items-center justify-center space-x-2">
+                <button onClick={() => setShowMobileForm(true)} className="group px-4 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)] flex items-center justify-center space-x-2">
                   <span>Request a Quote</span>
                   <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                </a>
-                <button className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 ${
+                </button>
+                <a href='#contact' className={`px-8 py-4 rounded-full font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 ${
                   isDark 
                     ? 'border-slate-700 text-white hover:bg-slate-800' 
                     : 'border-gray-200 text-slate-700 hover:bg-white hover:border-gray-300'
                 }`}>
                   <Phone className="w-5 h-5" />
                   <span>Contact an Agent</span>
-                </button>
+                </a>
               </div>
 
               {/* Features List */}
@@ -541,7 +541,7 @@ const handleSubmit = async (e) => {
   </div>
 
   {/* Mobile - Show Button Only */}
-  <div className="lg:hidden flex justify-center">
+  {/* <div className="lg:hidden flex justify-center">
     <button
       onClick={() => setShowMobileForm(true)}
       className="group px-8 py-4 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all duration-300 shadow-[0_0_20px_rgba(20,184,166,0.3)] hover:shadow-[0_0_30px_rgba(20,184,166,0.5)] flex items-center justify-center space-x-2"
@@ -549,7 +549,7 @@ const handleSubmit = async (e) => {
       <span>Get Free Quote</span>
       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
     </button>
-  </div>
+  </div> */}
 </div>
 
 {/* Mobile Popup Modal */}
