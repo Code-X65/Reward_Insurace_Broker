@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Routes, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import HomePage from './Pages/HomePage'
 import Footer from './components/Footer'
@@ -9,16 +9,16 @@ import { FormProvider } from '../src/context/FormContext';
 
 const App = () => {
   return (
-    <div> 
+    <div>
       <FormProvider>
         <Router basename='Reward_Insurace_Broker'>
-          <Navbar/> 
+          <Navbar />
           <QuoteForm />  {/* Add this line */}
           <Routes>
-            <Route index element={<HomePage />}/>
-            <Route path='/news' element={<News />}/>
+            <Route index element={<HomePage />} />
+            <Route path='/news' element={<News />} />
           </Routes>
-          <Footer/>
+          <Footer />
         </Router>
       </FormProvider>
     </div>

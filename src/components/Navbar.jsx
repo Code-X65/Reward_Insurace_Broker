@@ -42,7 +42,7 @@ const Navbar = () => {
     if (!target) return;
 
     const navbarHeight = navRef.current?.offsetHeight || 64;
-    const targetPosition = 
+    const targetPosition =
       target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
 
     window.scrollTo({
@@ -87,7 +87,7 @@ const Navbar = () => {
         window.requestAnimationFrame(() => {
           const currentScrollY = window.scrollY;
           const nav = navRef.current;
-          
+
           if (!nav) return;
 
           if (currentScrollY > lastScrollY.current && currentScrollY > 100) {
@@ -125,7 +125,7 @@ const Navbar = () => {
 
   return (
     <div className={isDark ? 'dark' : ''}>
-      <nav 
+      <nav
         ref={navRef}
         className={`${isDark ? 'bg-gray-900' : 'bg-green-900'} transition-all duration-500 fixed top-0 left-0 right-0 z-40 shadow-lg`}
         style={{ transform: 'translateY(0)', opacity: 1 }}
@@ -135,8 +135,8 @@ const Navbar = () => {
             {/* Left side - Logo and Contact Info */}
             <div className="flex items-center space-x-8">
               {/* Logo - Make it clickable to home */}
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="flex items-center space-x-2"
                 onClick={(e) => {
                   if (location.pathname === '/') {
@@ -148,7 +148,7 @@ const Navbar = () => {
                 <div className="w-10 h-10 flex items-center justify-center">
                   <img src={Logo} alt="Rewards Insurance Logo" />
                 </div>
-                <div className="text-blue-700">
+                <div className="text-white">
                   <div className="font-bold text-lg">Rewards</div>
                   <div className="text-xs">Insurance Brokers Limited</div>
                 </div>
@@ -176,7 +176,7 @@ const Navbar = () => {
                 Services
               </button>
               <Link
-                to="/news" 
+                to="/news"
                 className="text-gray-300 hover:text-green-400 transition-colors text-sm"
               >
                 Insights
@@ -209,7 +209,7 @@ const Navbar = () => {
               </button>
 
               {/* Get Free Quote Button */}
-              <button 
+              <button
                 onClick={handleGetQuoteClick}
                 className="hidden md:block bg-green-400 hover:bg-green-500 text-green-900 font-semibold px-6 py-2 rounded-lg transition-colors text-sm"
               >
@@ -235,16 +235,15 @@ const Navbar = () => {
           {/* Mobile Menu - Full Screen */}
           <div
             ref={mobileMenuRef}
-            className={`md:hidden fixed inset-0 ${
-              isDark ? 'bg-gray-900' : 'bg-green-900/70'
-            } transform transition-transform duration-300 ease-out scrollbar-hide h-screen z-40
+            className={`md:hidden fixed inset-0 ${isDark ? 'bg-gray-900' : 'bg-green-900/70'
+              } transform transition-transform duration-300 ease-out scrollbar-hide h-screen z-40
             ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}
           >
             <div className="flex flex-col h-full p-8">
               <div className="flex justify-between items-center mb-12">
                 {/* Logo in mobile menu - clickable to home */}
-                <Link 
-                  to="/" 
+                <Link
+                  to="/"
                   className="flex items-center space-x-2"
                   onClick={() => {
                     if (location.pathname === '/') {
@@ -261,7 +260,7 @@ const Navbar = () => {
                     <div className="text-xs text-gray-300">Insurance Brokers</div>
                   </div>
                 </Link>
-                
+
                 {/* Close button */}
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -310,13 +309,13 @@ const Navbar = () => {
 
               {/* Bottom section */}
               <div className="space-y-4">
-                <button 
+                <button
                   onClick={handleGetQuoteClick}
                   className="w-full bg-green-400 hover:bg-green-500 text-green-900 font-bold px-8 py-4 rounded-lg transition-colors text-lg"
                 >
                   Get Free Quote
                 </button>
-                
+
                 {/* Contact info in mobile menu */}
                 <div className="space-y-2 text-sm text-gray-300 pt-4 border-t border-green-800">
                   <div className="flex items-center space-x-2">

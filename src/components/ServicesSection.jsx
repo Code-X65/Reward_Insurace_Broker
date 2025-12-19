@@ -267,54 +267,61 @@ const nonLifeInsurance = [
 
 const ServiceCard = ({ service, index }) => (
   <div
-    className="flex-shrink-0 w-[320px] sm:w-[380px] md:w-[420px] h-[480px] sm:h-[520px] group relative overflow-hidden cursor-pointer snap-start"
-    onMouseEnter={() => setHoveredCard(index)}
-    onMouseLeave={() => setHoveredCard(null)}
-    onClick={() => setSelectedService(service)}
+    className={`flex-shrink-0 w-[320px] sm:w-[340px] p-8 rounded-2xl transition-all duration-300 snap-start ${
+      isDark 
+        ? 'bg-gray-900/50 border border-gray-800 hover:border-green-500/50' 
+        : 'bg-white border border-gray-200 hover:border-green-500/50'
+    } hover:shadow-xl hover:shadow-green-500/10`}
   >
-    {/* Background Image */}
-    <img 
-      src={service.image} 
-      alt={service.title}
-      className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-    />
-    
-    {/* Gradient Overlay */}
-    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-70 group-hover:opacity-90 transition-opacity duration-300" />
-    
-    {/* Content */}
-    <div className="absolute inset-0 p-6 flex flex-col justify-end">
-      {/* Bottom: Text Content */}
-      <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
-        {/* Subtitle with slide-up animation */}
-        <div className="overflow-hidden mb-3">
-         
-        </div>
-        
-        {/* Title (Always Visible) */}
-        <div className="flex items-center gap-3 mb-4">
-          <span className="text-4xl">{service.icon}</span>
-          <h3 className="text-2xl sm:text-3xl font-bold text-white">
-            {service.title}
-          </h3>
-        </div>
-
-        {/* Description & Button (Show on Hover) */}
-        <div className="max-h-0 group-hover:max-h-40 overflow-hidden transition-all duration-500 ease-in-out">
-          <p className="text-gray-200 text-sm sm:text-base mb-4 line-clamp-3">
-            {service.description}
-          </p>
-          
-          <button className="px-6 py-3 bg-gradient-to-r from-green-500 to-green-500 hover:from-green-400 hover:to-green-400 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-green-500/25">
-            Learn More
-          </button>
-        </div>
-      </div>
+    {/* Icon */}
+    <div className={`w-16 h-16 rounded-xl flex items-center justify-center mb-6 ${
+      isDark ? 'bg-green-500/20' : 'bg-green-500/10'
+    }`}>
+      <span className="text-4xl">{service.icon}</span>
     </div>
-
-    {/* Hover Border Effect */}
+    
+    {/* Title */}
+    <h3 className={`text-xl sm:text-2xl font-bold mb-3 ${
+      isDark ? 'text-white' : 'text-gray-900'
+    }`}>
+      {service.title}
+    </h3>
+    
+    {/* Description */}
+    <p className={`text-sm leading-relaxed mb-6 ${
+      isDark ? 'text-gray-400' : 'text-gray-600'
+    }`}>
+      {service.description}
+    </p>
+    
+    {/* Features List */}
+    <ul className="space-y-2 mb-6">
+      {service.features.slice(0, 3).map((feature, idx) => (
+        <li key={idx} className={`flex items-start gap-2 text-sm ${
+          isDark ? 'text-gray-400' : 'text-gray-600'
+        }`}>
+          <svg className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span>{feature}</span>
+        </li>
+      ))}
+    </ul>
+    
+    {/* Learn More Button */}
+    <a 
+      href="#contact"
+      className="inline-flex items-center gap-2 text-green-500 font-semibold hover:gap-3 transition-all duration-300 group"
+    >
+      Learn More
+      <svg className="w-4 h-4 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+      </svg>
+    </a>
   </div>
 );
+
+
   return (
     <div className={isDark ? 'dark' : ''} id='services'>
       <section className={`relative py-16 md:py-24 overflow-hidden ${
@@ -354,7 +361,7 @@ const ServiceCard = ({ service, index }) => (
 
           {/* Life Insurance Section */}
           <div className="mb-16 md:mb-24">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <div className="container mx-auto px-4 sm:px-4 lg:px-4 mb-8">
               <div className="flex items-center gap-4">
                 <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${
                   isDark ? 'text-white' : 'text-gray-900'
@@ -381,7 +388,7 @@ const ServiceCard = ({ service, index }) => (
 
           {/* Non-Life Insurance Section */}
           <div className="mb-16">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+            <div className="container mx-auto px-4 sm:px-4 lg:px-4 mb-8">
               <div className="flex items-center gap-4">
                 <h2 className={`text-2xl sm:text-3xl md:text-4xl font-bold ${
                   isDark ? 'text-white' : 'text-gray-900'
@@ -395,7 +402,7 @@ const ServiceCard = ({ service, index }) => (
 
             <div 
               ref={nonLifeInsuranceRef}
-              className="overflow-x-auto overflow-y-hidden scrollbar-hide snap-x snap-mandatory"
+              className=" overflow-y-hidden scrollbar-hide snap-x snap-mandatory"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               <div className="flex gap-6 px-4 sm:px-6 lg:px-8 pb-4">
