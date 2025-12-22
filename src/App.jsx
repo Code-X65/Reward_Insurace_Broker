@@ -4,6 +4,9 @@ import Navbar from './components/Navbar'
 import HomePage from './Pages/HomePage'
 import Footer from './components/Footer'
 import News from './Pages/News'
+import InsuranceGuide from './Pages/InsuranceGuide'
+import PrivacyStatement from './Pages/PrivacyStatement'
+import TermsOfService from './Pages/TermsOfService'
 import QuoteForm from './components/Qouteform'  // Add this import
 import { FormProvider } from '../src/context/FormContext';
 
@@ -17,6 +20,9 @@ const App = () => {
           <Routes>
             <Route index element={<HomePage />} />
             <Route path='/news' element={<News />} />
+            <Route path='/insurance-guide' element={<InsuranceGuide />} />
+            <Route path='/privacy' element={<PrivacyStatement />} />
+            <Route path='/terms-of-service' element={<TermsOfService />} />
           </Routes>
           <Footer />
         </Router>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom'; // Added useNavigate and useLocation
-import Logo from "../assets/logo.png"; // Import your logo
+import { useLocation, useNavigate, Link } from 'react-router-dom';
+import Logo from "../assets/logo.png";
 
 const Footer = () => {
   const [isDark, setIsDark] = useState(() => {
@@ -8,8 +8,8 @@ const Footer = () => {
     return saved ? saved === "dark" : true;
   });
 
-  const location = useLocation(); // Get current route
-  const navigate = useNavigate(); // For programmatic navigation
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Listen for theme changes
   useEffect(() => {
@@ -29,15 +29,7 @@ const Footer = () => {
     };
   }, []);
 
-  // Toggle theme function
-  const toggleTheme = () => {
-    const newTheme = !isDark;
-    setIsDark(newTheme);
-    localStorage.setItem("theme", newTheme ? "dark" : "light");
-    window.dispatchEvent(new Event("themeChange"));
-  };
-
-  // ⭐ New: Navigation handler for footer links
+  // Navigation handler for footer links
   const handleNavigation = (e, sectionId) => {
     e.preventDefault();
 
@@ -51,8 +43,8 @@ const Footer = () => {
     const target = document.getElementById(sectionId);
     if (!target) return;
 
-    const navbarHeight = 64; // Approximate navbar height
-    const targetPosition = 
+    const navbarHeight = 64;
+    const targetPosition =
       target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
 
     window.scrollTo({
@@ -61,7 +53,7 @@ const Footer = () => {
     });
   };
 
-  // ⭐ New: Scroll to top function when on homepage
+  // Scroll to top function when on homepage
   const handleLogoClick = (e) => {
     if (location.pathname !== '/') {
       e.preventDefault();
@@ -82,22 +74,17 @@ const Footer = () => {
 
   const company = [
     { name: 'About Us', href: '#about' },
-    // { name: 'Our Team', href: '#team' },
-    // { name: 'Careers', href: '#careers' },
     { name: 'News & Updates', href: '/news' },
     { name: 'Contact', href: '#contact' }
   ];
 
   const resources = [
-    { name: 'Insurance Guide', href: '#guide' },
-    // { name: 'FAQs', href: '#faqs' },
-    // { name: 'Claims Process', href: '#claims' },
-    { name: 'Privacy Policy', href: '#privacy' },
-    { name: 'Terms of Service', href: '#terms' }
+    { name: 'Insurance Guide', href: '/insurance-guide' },
+    { name: 'Privacy Policy', href: '/privacy' },
+    { name: 'Terms of Service', href: '/terms-of-service' }
   ];
 
   const socialLinks = [
-  
     {
       name: 'Instagram',
       icon: (
@@ -110,180 +97,204 @@ const Footer = () => {
   ];
 
   return (
-    <div className={isDark ? 'dark' : ''}>
-      <footer className={`relative ${
-        isDark ? 'bg-gray-900 border-t border-gray-800' : 'bg-gray-900 border-t border-gray-800'
+    <footer className={`relative ${isDark
+      ? 'bg-gradient-to-b from-gray-900 to-gray-950 text-white'
+      : 'bg-gradient-to-b from-gray-50 to-white text-gray-900'
       } transition-colors duration-300`}>
-        
-        {/* Main Footer Content */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
-            
-            {/* Company Info */}
-            <div className="lg:col-span-2">
-              {/* Logo Section - Made clickable */}
-              <div 
-                onClick={handleLogoClick}
-                className="flex items-center space-x-2 mb-4 cursor-pointer hover:opacity-80 transition-opacity"
-              >
-                <div className="w-10 h-10 flex items-center justify-center">
-                  {/* ⭐ Applied your logo here */}
-                  <img src={Logo} alt="Rewards Insurance Logo" className="w-full h-full object-contain" />
+
+      {/* Main Footer Content */}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+
+          {/* Company Info */}
+          <div className="lg:col-span-2">
+            {/* Logo Section - Made clickable */}
+            <div
+              onClick={handleLogoClick}
+              className="flex items-center space-x-3 mb-6 cursor-pointer hover:opacity-80 transition-opacity group"
+            >
+              <div className={`w-12 h-12 flex items-center justify-center rounded-xl ${isDark ? 'bg-gray-800/50' : 'bg-green-500/10'
+                } p-2 group-hover:scale-105 transition-transform duration-300`}>
+                <img src={Logo} alt="Rewards Insurance Logo" className="w-full h-full object-contain" />
+              </div>
+              <div>
+                <div className={`font-bold text-xl ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                  Rewards
                 </div>
-                <div className="text-white">
-                  <div className="font-bold text-lg">Rewards</div>
-                  <div className="text-xs text-gray-400">Insurance Brokers Limited</div>
+                <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  Insurance Brokers Limited
                 </div>
               </div>
-              
-              <p className="text-gray-400 text-sm mb-6 max-w-sm">
-                Your trusted partner for comprehensive insurance solutions in Nigeria. We carve a solid reputation as an efficient, innovative, and dynamic Insurance Broker.
-              </p>
+            </div>
 
-              {/* Contact Info */}
-              <div className="space-y-2">
-                <div className="flex items-center space-x-2 text-sm text-gray-400">
-                  <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'
+              } text-sm mb-8 max-w-md leading-relaxed`}>
+              Your trusted partner for comprehensive insurance solutions in Nigeria. We carve a solid reputation as an efficient, innovative, and dynamic Insurance Broker.
+            </p>
+
+            {/* Contact Info */}
+            <div className="space-y-3">
+              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-800/50' : 'bg-green-500/10'
+                  }`}>
+                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  <span>+234 803 390 6410</span>
                 </div>
-                <div className="flex items-center space-x-2 text-sm text-gray-400">
-                  <svg className="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span>+234 803 390 6410</span>
+              </div>
+
+              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-800/50' : 'bg-green-500/10'
+                  }`}>
+                  <svg className="w-4 h-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                  <span>rewardsbrokers@yahoo.com</span>
                 </div>
-                <div className="flex items-start space-x-2 text-sm text-gray-400">
-                  <svg className="w-4 h-4 text-green-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span>rewardsbrokers@yahoo.com</span>
+              </div>
+
+              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+                }`}>
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-800/50' : 'bg-green-500/10'
+                  }`}>
+                  <svg className="w-4 h-4 text-green-500 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span>Suite 11, Canal House, CBD, Abuja</span>
                 </div>
+                <span>Suite 11, Canal House, CBD, Abuja</span>
               </div>
             </div>
+          </div>
 
-            {/* Services */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-4">Services</h3>
-              <ul className="space-y-2">
-                {services.map((service) => (
-                  <li key={service.name}>
-                    <button
-                      onClick={(e) => handleNavigation(e, 'services')}
-                      className="text-gray-400 hover:text-green-400 transition-colors text-sm text-left w-full"
-                    >
-                      {service.name}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Services */}
+          <div>
+            <h3 className={`font-bold text-lg mb-6 ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+              Services
+            </h3>
+            <ul className="space-y-3">
+              {services.map((service) => (
+                <li key={service.name}>
+                  <button
+                    onClick={(e) => handleNavigation(e, 'services')}
+                    className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                      } flex items-center gap-2 group`}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                    {service.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {/* Company */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-4">Company</h3>
-              <ul className="space-y-2">
-                {company.map((item) => {
-                  if (item.name === 'News & Updates') {
-                    return (
-                      <li key={item.name}>
-                        <a
-                          href={item.href}
-                          className="text-gray-400 hover:text-green-400 transition-colors text-sm"
-                        >
-                          {item.name}
-                        </a>
-                      </li>
-                    );
-                  }
-                  
-                  // Handle scroll links
-                  const sectionId = item.href.replace('/#', '');
+          {/* Company */}
+          <div>
+            <h3 className={`font-bold text-lg mb-6 ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+              Company
+            </h3>
+            <ul className="space-y-3">
+              {company.map((item) => {
+                if (item.name === 'News & Updates') {
                   return (
                     <li key={item.name}>
-                      <button
-                        onClick={(e) => handleNavigation(e, sectionId)}
-                        className="text-gray-400 hover:text-green-400 transition-colors text-sm text-left w-full"
+                      <a
+                        href={item.href}
+                        className={`hover:text-green-500 transition-colors text-sm ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                          } flex items-center gap-2 group`}
                       >
+                        <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                         {item.name}
-                      </button>
+                      </a>
                     </li>
                   );
-                })}
-              </ul>
-            </div>
+                }
 
-            {/* Resources */}
-            <div>
-              <h3 className="text-white font-bold text-lg mb-4">Resources</h3>
-              <ul className="space-y-2">
-                {resources.map((item) => (
+                const sectionId = item.href.replace('#', '');
+                return (
                   <li key={item.name}>
                     <button
-                      onClick={(e) => {
-                        const sectionId = item.href.replace('#', '');
-                        handleNavigation(e, sectionId);
-                      }}
-                      className="text-gray-400 hover:text-green-400 transition-colors text-sm text-left w-full"
+                      onClick={(e) => handleNavigation(e, sectionId)}
+                      className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                        } flex items-center gap-2 group`}
                     >
+                      <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
                       {item.name}
                     </button>
                   </li>
-                ))}
-              </ul>
-            </div>
+                );
+              })}
+            </ul>
           </div>
-        </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-gray-800">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              {/* Copyright */}
-              <p className="text-gray-400 text-sm text-center md:text-left">
-                © 2025 Rewards Insurance Brokers Limited. All rights reserved.
-              </p>
-
-              {/* Theme Toggle & Social Links */}
-              <div className="flex items-center space-x-4">
-                {/* Theme Toggle Button */}
-                <button
-                  onClick={toggleTheme}
-                  className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-green-400 text-gray-400 hover:text-gray-900 flex items-center justify-center transition-all duration-300 hover:scale-110"
-                  aria-label="Toggle theme"
-                >
-                  {isDark ? (
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 2a1 1 0 011 1v1a1 1 0 11-2 0V3a1 1 0 011-1zm4 8a4 4 0 11-8 0 4 4 0 018 0zm-.464 4.95l.707.707a1 1 0 001.414-1.414l-.707-.707a1 1 0 00-1.414 1.414zm2.12-10.607a1 1 0 010 1.414l-.706.707a1 1 0 11-1.414-1.414l.707-.707a1 1 0 011.414 0zM17 11a1 1 0 100-2h-1a1 1 0 100 2h1zm-7 4a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM5.05 6.464A1 1 0 106.465 5.05l-.708-.707a1 1 0 00-1.414 1.414l.707.707zm1.414 8.486l-.707.707a1 1 0 01-1.414-1.414l.707-.707a1 1 0 011.414 1.414zM4 11a1 1 0 100-2H3a1 1 0 000 2h1z" clipRule="evenodd" />
-                    </svg>
-                  ) : (
-                    <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
-                    </svg>
-                  )}
-                </button>
-
-                {/* Social Links */}
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.name}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-lg bg-gray-800 hover:bg-green-400 text-gray-400 hover:text-gray-900 flex items-center justify-center transition-all duration-300 hover:scale-110"
-                    aria-label={social.name}
+          {/* Resources */}
+          <div>
+            <h3 className={`font-bold text-lg mb-6 ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
+              Resources
+            </h3>
+            <ul className="space-y-3">
+              {resources.map((item) => (
+                <li key={item.name}>
+                  <Link
+                    to={item.href}
+                    onClick={() => window.scrollTo(0, 0)}
+                    className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                      } flex items-center gap-2 group`}
                   >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Bar */}
+      <div className={`${isDark
+        ? 'border-t border-gray-800/50 bg-gray-900/50'
+        : 'border-t border-gray-200 bg-gray-50/50'
+        }`}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+            {/* Copyright */}
+            <p className={`text-sm text-center md:text-left ${isDark ? 'text-gray-500' : 'text-gray-600'
+              }`}>
+              © 2025 Rewards Insurance Brokers Limited. All rights reserved.
+            </p>
+
+            {/* Social Links */}
+            <div className="flex items-center space-x-3">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.name}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg ${isDark
+                    ? 'bg-gray-800 hover:bg-green-500 text-gray-400 hover:text-gray-900'
+                    : 'bg-white hover:bg-green-500 text-gray-600 hover:text-white border border-gray-200 hover:border-transparent shadow-sm hover:shadow-green-500/25'
+                    }`}
+                  aria-label={social.name}
+                >
+                  {social.icon}
+                </a>
+              ))}
             </div>
           </div>
         </div>
-      </footer>
-    </div>
+      </div>
+
+      {/* Decorative gradient line */}
+      <div className="h-1 bg-gradient-to-r from-green-500 via-green-400 to-green-500 opacity-20"></div>
+    </footer>
   );
 };
 
