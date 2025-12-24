@@ -6,7 +6,7 @@ const InsuranceGuide = () => {
     const saved = localStorage.getItem("theme");
     return saved ? saved === "dark" : true;
   });
-  
+
   const [activeCategory, setActiveCategory] = useState('all');
   const navigate = useNavigate();
 
@@ -38,9 +38,9 @@ const InsuranceGuide = () => {
       const target = document.getElementById('contact');
       if (target) {
         const navbarHeight = 64;
-        const targetPosition = 
+        const targetPosition =
           target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
-        
+
         window.scrollTo({
           top: targetPosition,
           behavior: 'smooth',
@@ -243,8 +243,8 @@ const InsuranceGuide = () => {
   ];
 
   // Filtered guides based on active category
-  const filteredGuides = activeCategory === 'all' 
-    ? insuranceGuides 
+  const filteredGuides = activeCategory === 'all'
+    ? insuranceGuides
     : insuranceGuides.filter(guide => guide.category === activeCategory);
 
   // Frequently Asked Questions
@@ -285,14 +285,13 @@ const InsuranceGuide = () => {
 
   return (
     <div className={isDark ? 'dark' : ''}>
-      <div className={`min-h-screen transition-colors duration-300 ${
-        isDark ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
-      }`}>
-        
+      <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'bg-gray-900 text-white' : 'bg-gray-50 text-gray-900'
+        }`}>
+
         {/* Hero Section */}
         <section className="relative py-16 md:py-20 overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-r from-green-900/20 to-blue-900/20"></div>
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="max-w-3xl mx-auto text-center">
               <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 Complete <span className="text-green-500">Insurance Guide</span>
@@ -301,13 +300,13 @@ const InsuranceGuide = () => {
                 Everything you need to know about insurance - from basic concepts to choosing the right coverage for your needs.
               </p>
               <div className="flex flex-wrap justify-center gap-4">
-                <button 
+                <button
                   onClick={() => handleGetQuote()}
                   className="px-8 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-lg transition-colors"
                 >
                   Get Personalized Advice
                 </button>
-                <a 
+                <a
                   href="#faq-section"
                   className="px-8 py-3 border-2 border-green-500 text-green-500 hover:bg-green-500 hover:text-white font-semibold rounded-lg transition-colors"
                 >
@@ -320,7 +319,7 @@ const InsuranceGuide = () => {
 
         {/* Categories Filter */}
         <section className="py-8">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="max-w-6xl mx-auto">
               <h2 className="text-2xl font-bold mb-6 text-center">Browse by Category</h2>
               <div className="flex flex-wrap justify-center gap-2 md:gap-4 mb-8">
@@ -328,13 +327,12 @@ const InsuranceGuide = () => {
                   <button
                     key={category.id}
                     onClick={() => setActiveCategory(category.id)}
-                    className={`px-4 py-2 md:px-6 md:py-3 rounded-full font-medium transition-all ${
-                      activeCategory === category.id
+                    className={`px-4 py-2 md:px-6 md:py-3 rounded-full font-medium transition-all ${activeCategory === category.id
                         ? 'bg-green-500 text-white'
-                        : isDark 
+                        : isDark
                           ? 'bg-gray-800 hover:bg-gray-700 text-gray-300'
                           : 'bg-white hover:bg-gray-100 text-gray-700 border border-gray-300'
-                    }`}
+                      }`}
                   >
                     {category.name}
                   </button>
@@ -346,37 +344,35 @@ const InsuranceGuide = () => {
 
         {/* Insurance Guides Grid */}
         <section className="py-12">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredGuides.map(guide => (
-                <div 
+                <div
                   key={guide.id}
-                  className={`rounded-2xl overflow-hidden transition-all duration-300 hover:transform hover:scale-[1.02] ${
-                    isDark 
-                      ? 'bg-gray-800 border border-gray-700' 
+                  className={`rounded-2xl overflow-hidden transition-all duration-300 hover:transform hover:scale-[1.02] ${isDark
+                      ? 'bg-gray-800 border border-gray-700'
                       : 'bg-white border border-gray-200 shadow-lg'
-                  }`}
+                    }`}
                 >
                   <div className="p-6">
                     <div className="flex items-start justify-between mb-4">
                       <div>
                         <div className="text-4xl mb-2">{guide.icon}</div>
                         <h3 className="text-xl font-bold mb-2">{guide.title}</h3>
-                        <span className={`inline-block px-3 py-1 text-xs rounded-full ${
-                          guide.category === 'personal' ? 'bg-blue-500/20 text-blue-500' :
-                          guide.category === 'property' ? 'bg-green-500/20 text-green-500' :
-                          guide.category === 'business' ? 'bg-purple-500/20 text-purple-500' :
-                          'bg-yellow-500/20 text-yellow-500'
-                        }`}>
+                        <span className={`inline-block px-3 py-1 text-xs rounded-full ${guide.category === 'personal' ? 'bg-blue-500/20 text-blue-500' :
+                            guide.category === 'property' ? 'bg-green-500/20 text-green-500' :
+                              guide.category === 'business' ? 'bg-purple-500/20 text-purple-500' :
+                                'bg-yellow-500/20 text-yellow-500'
+                          }`}>
                           {categories.find(c => c.id === guide.category)?.name || 'Other'}
                         </span>
                       </div>
                     </div>
-                    
+
                     <p className={`mb-4 ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
                       {guide.description}
                     </p>
-                    
+
                     <div className="space-y-4">
                       <div>
                         <h4 className="font-semibold mb-2 flex items-center">
@@ -394,7 +390,7 @@ const InsuranceGuide = () => {
                           ))}
                         </ul>
                       </div>
-                      
+
                       <div>
                         <h4 className="font-semibold mb-2 flex items-center">
                           <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -411,7 +407,7 @@ const InsuranceGuide = () => {
                           ))}
                         </ul>
                       </div>
-                      
+
                       <div>
                         <h4 className="font-semibold mb-2 flex items-center">
                           <svg className="w-4 h-4 mr-2 text-green-500" fill="currentColor" viewBox="0 0 20 20">
@@ -424,7 +420,7 @@ const InsuranceGuide = () => {
                         </p>
                       </div>
                     </div>
-                    
+
                     <button
                       onClick={() => handleGetQuote(guide.title)}
                       className="w-full mt-6 px-4 py-2 bg-green-500 hover:bg-green-600 text-white font-medium rounded-lg transition-colors"
@@ -440,26 +436,23 @@ const InsuranceGuide = () => {
 
         {/* Tips Section */}
         <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className={`max-w-4xl mx-auto rounded-2xl p-8 ${
-              isDark 
-                ? 'bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700' 
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className={`max-w-4xl mx-auto rounded-2xl p-8 ${isDark
+                ? 'bg-gradient-to-r from-gray-800 to-gray-900 border border-gray-700'
                 : 'bg-gradient-to-r from-green-50 to-blue-50 border border-green-100'
-            }`}>
+              }`}>
               <h2 className="text-3xl font-bold mb-6 text-center">
                 Tips for Choosing the Right Insurance
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {insuranceTips.map((tip, index) => (
-                  <div 
+                  <div
                     key={index}
-                    className={`flex items-start p-4 rounded-lg ${
-                      isDark ? 'bg-gray-700/50' : 'bg-white'
-                    }`}
+                    className={`flex items-start p-4 rounded-lg ${isDark ? 'bg-gray-700/50' : 'bg-white'
+                      }`}
                   >
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 ${
-                      isDark ? 'bg-green-600' : 'bg-green-100 text-green-600'
-                    }`}>
+                    <div className={`w-8 h-8 rounded-full flex items-center justify-center mr-3 flex-shrink-0 ${isDark ? 'bg-green-600' : 'bg-green-100 text-green-600'
+                      }`}>
                       {index + 1}
                     </div>
                     <p className={isDark ? 'text-gray-300' : 'text-gray-700'}>
@@ -474,17 +467,16 @@ const InsuranceGuide = () => {
 
         {/* FAQ Section */}
         <section id="faq-section" className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-12 text-center">
               Frequently Asked Questions
             </h2>
             <div className="max-w-3xl mx-auto space-y-6">
               {faqs.map((faq, index) => (
-                <div 
+                <div
                   key={index}
-                  className={`rounded-xl overflow-hidden ${
-                    isDark ? 'bg-gray-800' : 'bg-white border border-gray-200'
-                  }`}
+                  className={`rounded-xl overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-white border border-gray-200'
+                    }`}
                 >
                   <div className="p-6">
                     <h3 className="text-lg font-semibold mb-3 flex items-center">
@@ -505,12 +497,11 @@ const InsuranceGuide = () => {
 
         {/* CTA Section */}
         <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <div className={`max-w-4xl mx-auto rounded-2xl p-8 md:p-12 text-center ${
-              isDark 
-                ? 'bg-gradient-to-r from-green-900 to-blue-900' 
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className={`max-w-4xl mx-auto rounded-2xl p-8 md:p-12 text-center ${isDark
+                ? 'bg-gradient-to-r from-green-900 to-blue-900'
                 : 'bg-gradient-to-r from-green-600 to-blue-600'
-            }`}>
+              }`}>
               <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
                 Need Personalized Insurance Advice?
               </h2>
@@ -518,13 +509,13 @@ const InsuranceGuide = () => {
                 Our licensed insurance advisors are ready to help you find the perfect coverage for your unique needs.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button 
+                <button
                   onClick={() => handleGetQuote()}
                   className="px-8 py-3 bg-white hover:bg-gray-100 text-green-600 font-bold rounded-lg transition-colors"
                 >
                   Get Free Consultation
                 </button>
-                <a 
+                <a
                   href="tel:+2348033906410"
                   className="px-8 py-3 border-2 border-white text-white hover:bg-white/10 font-bold rounded-lg transition-colors"
                 >
@@ -537,13 +528,12 @@ const InsuranceGuide = () => {
 
         {/* Glossary Section */}
         <section className="py-16">
-          <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-3xl font-bold mb-12 text-center">
               Insurance Terms Explained
             </h2>
-            <div className={`max-w-6xl mx-auto rounded-xl p-6 ${
-              isDark ? 'bg-gray-800' : 'bg-gray-50'
-            }`}>
+            <div className={`max-w-6xl mx-auto rounded-xl p-6 ${isDark ? 'bg-gray-800' : 'bg-gray-50'
+              }`}>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[
                   { term: 'Premium', definition: 'The amount you pay for your insurance policy, typically monthly or annually.' },
@@ -556,11 +546,10 @@ const InsuranceGuide = () => {
                   { term: 'Rider', definition: 'An add-on to your basic policy that provides additional coverage.' },
                   { term: 'Underwriting', definition: 'The process insurers use to evaluate risk and determine premiums.' },
                 ].map((item, index) => (
-                  <div 
+                  <div
                     key={index}
-                    className={`p-4 rounded-lg ${
-                      isDark ? 'bg-gray-700' : 'bg-white border border-gray-200'
-                    }`}
+                    className={`p-4 rounded-lg ${isDark ? 'bg-gray-700' : 'bg-white border border-gray-200'
+                      }`}
                   >
                     <h4 className="font-bold text-lg mb-2 text-green-600">{item.term}</h4>
                     <p className={isDark ? 'text-gray-300' : 'text-gray-600'}>{item.definition}</p>

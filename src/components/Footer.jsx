@@ -103,7 +103,7 @@ const Footer = () => {
       } transition-colors duration-300`}>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
 
           {/* Company Info */}
@@ -262,7 +262,7 @@ const Footer = () => {
         ? 'border-t border-gray-800/50 bg-gray-900/50'
         : 'border-t border-gray-200 bg-gray-50/50'
         }`}>
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
             <p className={`text-sm text-center md:text-left ${isDark ? 'text-gray-500' : 'text-gray-600'

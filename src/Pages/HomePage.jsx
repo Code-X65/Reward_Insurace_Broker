@@ -11,14 +11,17 @@ import ContactSection from '../components/ContactSection'
 const HomePage = () => {
   return (
     <>
-    <InsuranceHero />
-    <AboutUsSection />
-    <ClientsPartnersSection />
-    <ServicesSection />
-    <IndustriesSection />
-    <TestimonialsSection />
-    <CTASection />
-    <ContactSection />
+      <div >
+        <InsuranceHero />
+        <AboutUsSection />
+        <ClientsPartnersSection />
+        <ServicesSection />
+        <IndustriesSection />
+        <TestimonialsSection />
+        <CTASection />
+        <ContactSection />
+      </div>
+
     </>
   )
 }

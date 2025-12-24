@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
-import { 
-  CalendarDays, 
-  User, 
-  Clock, 
-  ArrowRight, 
-  ExternalLink, 
-  Tag, 
-  ChevronLeft, 
-  ChevronRight, 
-  Search, 
-  Filter, 
-  Share2, 
+import {
+  CalendarDays,
+  User,
+  Clock,
+  ArrowRight,
+  ExternalLink,
+  Tag,
+  ChevronLeft,
+  ChevronRight,
+  Search,
+  Filter,
+  Share2,
   Bookmark,
   Loader2,
   AlertCircle,
@@ -34,143 +34,143 @@ const BlogSection = () => {
   const [categories, setCategories] = useState([]);
   const [apiStats, setApiStats] = useState({ success: 0, failed: 0 });
   const [lastFetchTime, setLastFetchTime] = useState(null);
-  
+
   const postsPerPage = 9;
   const blogRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
 
-const INSURANCE_QUERY =
-  'insurance OR insurtech OR reinsurance OR underwriting OR claims OR health insurance OR life insurance';
+  const INSURANCE_QUERY =
+    'insurance OR insurtech OR reinsurance OR underwriting OR claims OR health insurance OR life insurance';
 
-const API_CONFIGS = [
-  {
-    name: 'NewsAPI',
-    url: `https://newsapi.org/v2/everything?q=${encodeURIComponent(
-      INSURANCE_QUERY
-    )}&language=en&sortBy=publishedAt&apiKey=5b0af3d79916424481d9767a50cd6717`,
-    transform: (data) =>
-      data.articles?.map(article => ({
-        id: `newsapi-${article.url}`,
-        title: article.title,
-        excerpt: article.description || 'No description available',
-        content: article.content || article.description,
-        author: article.author || 'Unknown Author',
-        date: article.publishedAt,
-        readTime: `${Math.max(
-          2,
-          Math.ceil((article.content?.length || 300) / 1000)
-        )} min read`,
-        category: 'Insurance',
-        image:
-          article.urlToImage ||
-          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
-        source: article.source?.name,
-        url: article.url,
-        tags: ['Insurance', 'InsurTech', 'Finance']
-      })) || []
-  },
+  const API_CONFIGS = [
+    {
+      name: 'NewsAPI',
+      url: `https://newsapi.org/v2/everything?q=${encodeURIComponent(
+        INSURANCE_QUERY
+      )}&language=en&sortBy=publishedAt&apiKey=5b0af3d79916424481d9767a50cd6717`,
+      transform: (data) =>
+        data.articles?.map(article => ({
+          id: `newsapi-${article.url}`,
+          title: article.title,
+          excerpt: article.description || 'No description available',
+          content: article.content || article.description,
+          author: article.author || 'Unknown Author',
+          date: article.publishedAt,
+          readTime: `${Math.max(
+            2,
+            Math.ceil((article.content?.length || 300) / 1000)
+          )} min read`,
+          category: 'Insurance',
+          image:
+            article.urlToImage ||
+            'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
+          source: article.source?.name,
+          url: article.url,
+          tags: ['Insurance', 'InsurTech', 'Finance']
+        })) || []
+    },
 
-  {
-    name: 'Guardian',
-    url: `https://content.guardianapis.com/search?q=insurance&api-key=9b397605-f011-43d8-8ac0-ef93346fc445&show-fields=thumbnail,trailText,body&page-size=10`,
-    transform: (data) =>
-      data.response?.results?.map(article => ({
-        id: `guardian-${article.id}`,
-        title: article.webTitle,
-        excerpt: article.fields?.trailText || 'No description available',
-        content: article.fields?.body || article.fields?.trailText,
-        author: 'The Guardian',
-        date: article.webPublicationDate,
-        readTime: `${Math.max(
-          3,
-          Math.ceil((article.fields?.body?.length || 500) / 1000)
-        )} min read`,
-        category: 'Insurance',
-        image:
-          article.fields?.thumbnail ||
-          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
-        source: 'The Guardian',
-        url: article.webUrl,
-        tags: ['Insurance', 'Policy', 'Risk']
-      })) || []
-  },
+    {
+      name: 'Guardian',
+      url: `https://content.guardianapis.com/search?q=insurance&api-key=9b397605-f011-43d8-8ac0-ef93346fc445&show-fields=thumbnail,trailText,body&page-size=10`,
+      transform: (data) =>
+        data.response?.results?.map(article => ({
+          id: `guardian-${article.id}`,
+          title: article.webTitle,
+          excerpt: article.fields?.trailText || 'No description available',
+          content: article.fields?.body || article.fields?.trailText,
+          author: 'The Guardian',
+          date: article.webPublicationDate,
+          readTime: `${Math.max(
+            3,
+            Math.ceil((article.fields?.body?.length || 500) / 1000)
+          )} min read`,
+          category: 'Insurance',
+          image:
+            article.fields?.thumbnail ||
+            'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
+          source: 'The Guardian',
+          url: article.webUrl,
+          tags: ['Insurance', 'Policy', 'Risk']
+        })) || []
+    },
 
-  {
-    name: 'NYTimes',
-    url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=insurance&api-key=6AeQw2pt4WVzkKTy6fFDB7qIiMgIV3FZUIbOEqxZnRfK63qA`,
-    transform: (data) =>
-      data.response?.docs?.slice(0, 10).map(article => ({
-        id: `nyt-${article._id}`,
-        title: article.headline?.main,
-        excerpt: article.abstract || 'No description available',
-        content: article.lead_paragraph || article.abstract,
-        author: article.byline?.original || 'New York Times',
-        date: article.pub_date,
-        readTime: `${Math.max(
-          4,
-          Math.ceil((article.abstract?.length || 600) / 1000)
-        )} min read`,
-        category: 'Insurance',
-        image:
-          article.multimedia?.[0]?.url
-            ? `https://www.nytimes.com/${article.multimedia[0].url}`
-            : 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
-        source: 'New York Times',
-        url: article.web_url,
-        tags: ['Insurance', 'Risk Management', 'Finance']
-      })) || []
-  },
+    {
+      name: 'NYTimes',
+      url: `https://api.nytimes.com/svc/search/v2/articlesearch.json?q=insurance&api-key=6AeQw2pt4WVzkKTy6fFDB7qIiMgIV3FZUIbOEqxZnRfK63qA`,
+      transform: (data) =>
+        data.response?.docs?.slice(0, 10).map(article => ({
+          id: `nyt-${article._id}`,
+          title: article.headline?.main,
+          excerpt: article.abstract || 'No description available',
+          content: article.lead_paragraph || article.abstract,
+          author: article.byline?.original || 'New York Times',
+          date: article.pub_date,
+          readTime: `${Math.max(
+            4,
+            Math.ceil((article.abstract?.length || 600) / 1000)
+          )} min read`,
+          category: 'Insurance',
+          image:
+            article.multimedia?.[0]?.url
+              ? `https://www.nytimes.com/${article.multimedia[0].url}`
+              : 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
+          source: 'New York Times',
+          url: article.web_url,
+          tags: ['Insurance', 'Risk Management', 'Finance']
+        })) || []
+    },
 
-  {
-    name: 'GNews',
-    url: `https://gnews.io/api/v4/search?q=insurance&lang=en&apikey=963871356ba532833088d07c8e8d15c6`,
-    transform: (data) =>
-      data.articles?.map(article => ({
-        id: `gnews-${article.url}`,
-        title: article.title,
-        excerpt: article.description || 'No description available',
-        content: article.content || article.description,
-        author: article.source?.name || 'GNews',
-        date: article.publishedAt,
-        readTime: `${Math.max(
-          2,
-          Math.ceil((article.content?.length || 300) / 1000)
-        )} min read`,
-        category: 'Insurance',
-        image:
-          article.image ||
-          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
-        source: 'GNews',
-        url: article.url,
-        tags: ['Insurance', 'InsurTech', 'Global']
-      })) || []
-  },
+    {
+      name: 'GNews',
+      url: `https://gnews.io/api/v4/search?q=insurance&lang=en&apikey=963871356ba532833088d07c8e8d15c6`,
+      transform: (data) =>
+        data.articles?.map(article => ({
+          id: `gnews-${article.url}`,
+          title: article.title,
+          excerpt: article.description || 'No description available',
+          content: article.content || article.description,
+          author: article.source?.name || 'GNews',
+          date: article.publishedAt,
+          readTime: `${Math.max(
+            2,
+            Math.ceil((article.content?.length || 300) / 1000)
+          )} min read`,
+          category: 'Insurance',
+          image:
+            article.image ||
+            'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
+          source: 'GNews',
+          url: article.url,
+          tags: ['Insurance', 'InsurTech', 'Global']
+        })) || []
+    },
 
-  {
-    name: 'MediaStack',
-    url: `http://api.mediastack.com/v1/news?access_key=65fb09b9e9bbd39dbd81ebdcdb331747&keywords=insurance,insurtech,reinsurance&languages=en&limit=10`,
-    transform: (data) =>
-      data.data?.map(article => ({
-        id: `mediastack-${article.url}`,
-        title: article.title,
-        excerpt: article.description || 'No description available',
-        content: article.description,
-        author: article.author || article.source || 'MediaStack',
-        date: article.published_at,
-        readTime: `${Math.max(
-          2,
-          Math.ceil((article.description?.length || 300) / 1000)
-        )} min read`,
-        category: 'Insurance',
-        image:
-          article.image ||
-          'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
-        source: article.source || 'MediaStack',
-        url: article.url,
-        tags: ['Insurance', 'Claims', 'Risk']
-      })) || []
-  }
-];
+    {
+      name: 'MediaStack',
+      url: `http://api.mediastack.com/v1/news?access_key=65fb09b9e9bbd39dbd81ebdcdb331747&keywords=insurance,insurtech,reinsurance&languages=en&limit=10`,
+      transform: (data) =>
+        data.data?.map(article => ({
+          id: `mediastack-${article.url}`,
+          title: article.title,
+          excerpt: article.description || 'No description available',
+          content: article.description,
+          author: article.author || article.source || 'MediaStack',
+          date: article.published_at,
+          readTime: `${Math.max(
+            2,
+            Math.ceil((article.description?.length || 300) / 1000)
+          )} min read`,
+          category: 'Insurance',
+          image:
+            article.image ||
+            'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=800&h=600&fit=crop&q=80',
+          source: article.source || 'MediaStack',
+          url: article.url,
+          tags: ['Insurance', 'Claims', 'Risk']
+        })) || []
+    }
+  ];
 
 
   // Mock fallback data
@@ -251,19 +251,19 @@ const API_CONFIGS = [
         try {
           console.log(`Fetching from ${config.name}...`);
           const response = await fetch(config.url);
-          
+
           if (!response.ok) {
             throw new Error(`${config.name}: ${response.status} ${response.statusText}`);
           }
-          
+
           const data = await response.json();
           const transformed = config.transform(data);
-          
+
           transformed.forEach(article => {
             uniqueCategories.add(article.category);
             allArticles.push(article);
           });
-          
+
           stats.success++;
           console.log(`Successfully fetched ${transformed.length} articles from ${config.name}`);
         } catch (apiError) {
@@ -286,7 +286,7 @@ const API_CONFIGS = [
       }
 
       // Sort articles by date (newest first)
-      const sortedArticles = allArticles.sort((a, b) => 
+      const sortedArticles = allArticles.sort((a, b) =>
         new Date(b.date) - new Date(a.date)
       );
 
@@ -294,7 +294,7 @@ const API_CONFIGS = [
       setFilteredArticles(sortedArticles);
       setCategories(Array.from(uniqueCategories));
       setLastFetchTime(new Date());
-      
+
     } catch (error) {
       console.error('Error fetching articles:', error);
       setError('Failed to load articles. Please try again.');
@@ -366,11 +366,10 @@ const API_CONFIGS = [
   // Article card component
   const ArticleCard = ({ article, index }) => (
     <div
-      className={`group relative overflow-hidden rounded-xl cursor-pointer transform transition-all duration-300 hover:-translate-y-1 ${
-        isDark 
-          ? 'bg-gray-900/50 hover:bg-gray-800/70 border border-gray-800' 
+      className={`group relative overflow-hidden rounded-xl cursor-pointer transform transition-all duration-300 hover:-translate-y-1 ${isDark
+          ? 'bg-gray-900/50 hover:bg-gray-800/70 border border-gray-800'
           : 'bg-white hover:bg-gray-50 border border-gray-200'
-      }`}
+        }`}
       onClick={() => handleArticleClick(article)}
     >
       {/* Image */}
@@ -382,14 +381,13 @@ const API_CONFIGS = [
           loading="lazy"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-        
+
         {/* Category Badge */}
         <div className="absolute top-4 left-4">
-          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
-            isDark 
-              ? 'bg-green-600/20 text-green-400 border border-green-600/30' 
+          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${isDark
+              ? 'bg-green-600/20 text-green-400 border border-green-600/30'
               : 'bg-green-500/10 text-green-700 border border-green-500/20'
-          }`}>
+            }`}>
             {article.category}
           </span>
         </div>
@@ -412,15 +410,13 @@ const API_CONFIGS = [
           </div>
         </div>
 
-        <h3 className={`text-lg sm:text-xl font-bold mb-3 line-clamp-2 ${
-          isDark ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
-        } transition-colors`}>
+        <h3 className={`text-lg sm:text-xl font-bold mb-3 line-clamp-2 ${isDark ? 'text-white group-hover:text-green-400' : 'text-gray-900 group-hover:text-green-600'
+          } transition-colors`}>
           {article.title}
         </h3>
 
-        <p className={`text-sm sm:text-base mb-4 line-clamp-3 ${
-          isDark ? 'text-gray-400' : 'text-gray-600'
-        }`}>
+        <p className={`text-sm sm:text-base mb-4 line-clamp-3 ${isDark ? 'text-gray-400' : 'text-gray-600'
+          }`}>
           {article.excerpt}
         </p>
 
@@ -431,10 +427,9 @@ const API_CONFIGS = [
               {article.author}
             </span>
           </div>
-          
-          <div className={`flex items-center gap-2 text-sm font-medium ${
-            isDark ? 'text-green-400' : 'text-green-600'
-          }`}>
+
+          <div className={`flex items-center gap-2 text-sm font-medium ${isDark ? 'text-green-400' : 'text-green-600'
+            }`}>
             <span>Read More</span>
             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </div>
@@ -448,64 +443,58 @@ const API_CONFIGS = [
 
   return (
     <div className={isDark ? 'dark' : ''} id="blog">
-      <section 
+      <section
         ref={blogRef}
-        className={`relative py-16 md:py-24 overflow-hidden ${
-          isDark ? 'bg-gray-950' : 'bg-gray-50'
-        } transition-colors duration-500`}
+        className={`relative py-16 md:py-24 overflow-hidden ${isDark ? 'bg-gray-950' : 'bg-gray-50'
+          } transition-colors duration-500`}
       >
         {/* Decorative Elements */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-green-500 via-blue-500 to-green-500" />
         <div className="absolute top-20 left-10 w-72 h-72 bg-green-500/5 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-gradient-to-r from-green-500 to-blue-500 text-white text-sm font-medium">
               <span>Latest Insights</span>
               <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
             </div>
-            
-            <h1 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
+
+            <h1 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-4 sm:mb-6 ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-blue-500">
                 News & Insights
               </span>
             </h1>
-            
-            <p className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>
+
+            <p className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'
+              }`}>
               Stay updated with the latest news, insights, and analysis from the world of finance and insurance
             </p>
           </div>
 
           {/* Stats & Controls */}
-          <div className={`mb-8 p-4 rounded-xl ${
-            isDark ? 'bg-gray-900/50 border border-gray-800' : 'bg-white border border-gray-200'
-          }`}>
+          <div className={`mb-8 p-4 rounded-xl ${isDark ? 'bg-gray-900/50 border border-gray-800' : 'bg-white border border-gray-200'
+            }`}>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               {/* Search */}
               <div className="relative flex-1 max-w-md">
-                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${
-                  isDark ? 'text-gray-500' : 'text-gray-400'
-                }`} />
+                <Search className={`absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 ${isDark ? 'text-gray-500' : 'text-gray-400'
+                  }`} />
                 <input
                   type="text"
                   placeholder="Search articles..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className={`w-full pl-10 pr-4 py-3 rounded-lg border ${
-                    isDark 
-                      ? 'bg-gray-900 border-gray-800 text-white placeholder-gray-500 focus:border-green-500' 
+                  className={`w-full pl-10 pr-4 py-3 rounded-lg border ${isDark
+                      ? 'bg-gray-900 border-gray-800 text-white placeholder-gray-500 focus:border-green-500'
                       : 'bg-white border-gray-300 text-gray-900 placeholder-gray-400 focus:border-green-500'
-                  } transition-colors`}
+                    } transition-colors`}
                 />
               </div>
 
-        
+
             </div>
           </div>
 
@@ -513,13 +502,12 @@ const API_CONFIGS = [
           <div className="flex flex-wrap gap-2 mb-8">
             <button
               onClick={() => setSelectedCategory('all')}
-              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === 'all'
+              className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === 'all'
                   ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
                   : isDark
                     ? 'bg-gray-900 text-gray-400 hover:bg-gray-800 hover:text-white'
                     : 'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-              }`}
+                }`}
             >
               All ({articles.length})
             </button>
@@ -530,13 +518,12 @@ const API_CONFIGS = [
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    selectedCategory === category
+                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${selectedCategory === category
                       ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
                       : isDark
                         ? 'bg-gray-900 text-gray-400 hover:bg-gray-800 hover:text-white'
                         : 'bg-white text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                  }`}
+                    }`}
                 >
                   {category}
                 </button>
@@ -555,9 +542,8 @@ const API_CONFIGS = [
 
           {/* Error State */}
           {error && !loading && (
-            <div className={`p-6 rounded-xl mb-8 ${
-              isDark ? 'bg-red-900/20 border border-red-800' : 'bg-red-50 border border-red-200'
-            }`}>
+            <div className={`p-6 rounded-xl mb-8 ${isDark ? 'bg-red-900/20 border border-red-800' : 'bg-red-50 border border-red-200'
+              }`}>
               <div className="flex items-center gap-3 mb-3">
                 <AlertCircle className="w-5 h-5 text-red-500" />
                 <h3 className={`font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
@@ -605,11 +591,10 @@ const API_CONFIGS = [
                   <button
                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
                     disabled={currentPage === 1}
-                    className={`p-2 rounded-lg ${
-                      currentPage === 1
+                    className={`p-2 rounded-lg ${currentPage === 1
                         ? 'opacity-50 cursor-not-allowed'
                         : 'hover:bg-gray-100 dark:hover:bg-gray-800'
-                    } ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+                      } ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
                   >
                     <ChevronLeft className="w-5 h-5" />
                   </button>
@@ -630,13 +615,12 @@ const API_CONFIGS = [
                       <button
                         key={pageNum}
                         onClick={() => setCurrentPage(pageNum)}
-                        className={`w-10 h-10 rounded-lg font-medium transition-all ${
-                          currentPage === pageNum
+                        className={`w-10 h-10 rounded-lg font-medium transition-all ${currentPage === pageNum
                             ? 'bg-gradient-to-r from-green-500 to-blue-500 text-white'
                             : isDark
                               ? 'text-gray-400 hover:bg-gray-800 hover:text-white'
                               : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
-                        }`}
+                          }`}
                       >
                         {pageNum}
                       </button>
@@ -646,11 +630,10 @@ const API_CONFIGS = [
                   <button
                     onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
                     disabled={currentPage === totalPages}
-                    className={`p-2 rounded-lg ${
-                      currentPage === totalPages
+                    className={`p-2 rounded-lg ${currentPage === totalPages
                         ? 'opacity-50 cursor-not-allowed'
                         : 'hover:bg-gray-100 dark:hover:bg-gray-800'
-                    } ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
+                      } ${isDark ? 'text-gray-400' : 'text-gray-600'}`}
                   >
                     <ChevronRight className="w-5 h-5" />
                   </button>
@@ -658,9 +641,8 @@ const API_CONFIGS = [
               )}
 
               {/* Results Info */}
-              <div className={`text-center mt-8 text-sm ${
-                isDark ? 'text-gray-500' : 'text-gray-500'
-              }`}>
+              <div className={`text-center mt-8 text-sm ${isDark ? 'text-gray-500' : 'text-gray-500'
+                }`}>
                 Showing {indexOfFirstPost + 1}-{Math.min(indexOfLastPost, filteredArticles.length)} of {filteredArticles.length} articles
                 {searchTerm && ` for "${searchTerm}"`}
                 {selectedCategory !== 'all' && ` in ${selectedCategory}`}
@@ -672,33 +654,31 @@ const API_CONFIGS = [
         {/* Article Detail Modal */}
         {selectedArticle && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <div 
+            <div
               className="absolute inset-0 bg-black/80 backdrop-blur-sm"
               onClick={() => setSelectedArticle(null)}
             />
-            
-            <div 
-              className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl ${
-                isDark ? 'bg-gray-900' : 'bg-white'
-              }`}
+
+            <div
+              className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl ${isDark ? 'bg-gray-900' : 'bg-white'
+                }`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal Header */}
               <div className="sticky top-0 z-10">
                 <div className="relative h-64 overflow-hidden rounded-t-2xl">
-                  <img 
-                    src={selectedArticle.image} 
+                  <img
+                    src={selectedArticle.image}
                     alt={selectedArticle.title}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
-                  
+
                   {/* Close Button */}
                   <button
                     onClick={() => setSelectedArticle(null)}
-                    className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm ${
-                      isDark ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'
-                    } transition-colors`}
+                    className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm ${isDark ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'
+                      } transition-colors`}
                   >
                     <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -710,18 +690,16 @@ const API_CONFIGS = [
               {/* Modal Content */}
               <div className="p-6 sm:p-8">
                 <div className="mb-6">
-                  <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                    isDark 
-                      ? 'bg-green-600/20 text-green-400 border border-green-600/30' 
+                  <span className={`px-3 py-1 rounded-full text-sm font-semibold ${isDark
+                      ? 'bg-green-600/20 text-green-400 border border-green-600/30'
                       : 'bg-green-500/10 text-green-700 border border-green-500/20'
-                  }`}>
+                    }`}>
                     {selectedArticle.category}
                   </span>
                 </div>
 
-                <h2 className={`text-3xl sm:text-4xl font-bold mb-4 ${
-                  isDark ? 'text-white' : 'text-gray-900'
-                }`}>
+                <h2 className={`text-3xl sm:text-4xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'
+                  }`}>
                   {selectedArticle.title}
                 </h2>
 
@@ -746,9 +724,8 @@ const API_CONFIGS = [
                   </div>
                 </div>
 
-                <div className={`prose max-w-none mb-8 ${
-                  isDark ? 'prose-invert' : ''
-                }`}>
+                <div className={`prose max-w-none mb-8 ${isDark ? 'prose-invert' : ''
+                  }`}>
                   <p className="text-lg leading-relaxed">
                     {selectedArticle.content}
                   </p>
@@ -760,11 +737,10 @@ const API_CONFIGS = [
                       {selectedArticle.tags.map((tag, index) => (
                         <span
                           key={index}
-                          className={`px-3 py-1 rounded-full text-sm ${
-                            isDark
+                          className={`px-3 py-1 rounded-full text-sm ${isDark
                               ? 'bg-gray-800 text-gray-300 border border-gray-700'
                               : 'bg-gray-100 text-gray-700 border border-gray-200'
-                          }`}
+                            }`}
                         >
                           {tag}
                         </span>

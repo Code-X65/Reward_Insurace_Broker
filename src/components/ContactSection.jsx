@@ -138,11 +138,10 @@ const ContactSection = () => {
 
   return (
     <div className={isDark ? 'dark' : ''} id="contact">
-      <section 
+      <section
         ref={sectionRef}
-        className={`relative py-8 md:py-10 lg:py-12 overflow-hidden ${
-          isDark ? 'bg-gray-900' : 'bg-white'
-        } transition-colors duration-300`}
+        className={`relative py-8 md:py-10 lg:py-12 overflow-hidden ${isDark ? 'bg-gray-900' : 'bg-white'
+          } transition-colors duration-300`}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -152,41 +151,36 @@ const ContactSection = () => {
           }} />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${
-            hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}>
+          <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}>
             <div className="inline-block mb-4">
               <span className="text-green-400 text-sm font-semibold tracking-wider uppercase">
                 Contact Us
               </span>
             </div>
-            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
               Get In <span className="text-green-400">Touch</span>
             </h2>
-            <p className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>
+            <p className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto ${isDark ? 'text-gray-400' : 'text-gray-600'
+              }`}>
               Have questions? We're here to help. Reach out to us through any of the channels below.
             </p>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Left Side - Contact Info */}
-            <div className={`space-y-6 transition-all duration-1000 delay-200 ${
-              hasAnimated ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
-            }`}>
+            <div className={`space-y-6 transition-all duration-1000 delay-200 ${hasAnimated ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
+              }`}>
               {contactInfo.map((info, index) => (
                 <div
                   key={index}
-                  className={`flex items-start space-x-4 p-6 rounded-xl transition-all duration-300 hover:scale-105 ${
-                    isDark 
-                      ? 'bg-gray-800/50 hover:bg-gray-800/70' 
+                  className={`flex items-start space-x-4 p-6 rounded-xl transition-all duration-300 hover:scale-105 ${isDark
+                      ? 'bg-gray-800/50 hover:bg-gray-800/70'
                       : 'bg-gray-50 hover:bg-gray-100'
-                  }`}
+                    }`}
                 >
                   <div className="flex-shrink-0">
                     <div className="w-12 h-12 rounded-lg bg-green-400 flex items-center justify-center text-gray-900">
@@ -194,15 +188,13 @@ const ContactSection = () => {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className={`text-lg font-bold mb-2 ${
-                      isDark ? 'text-white' : 'text-gray-900'
-                    }`}>
+                    <h3 className={`text-lg font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'
+                      }`}>
                       {info.title}
                     </h3>
                     {info.details.map((detail, idx) => (
-                      <p key={idx} className={`text-sm ${
-                        isDark ? 'text-gray-400' : 'text-gray-600'
-                      }`}>
+                      <p key={idx} className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+                        }`}>
                         {detail}
                       </p>
                     ))}
@@ -212,17 +204,14 @@ const ContactSection = () => {
             </div>
 
             {/* Right Side - Contact Form */}
-            <div className={`transition-all duration-1000 delay-400 ${
-              hasAnimated ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
-            }`}>
-              <div className={`p-8 rounded-2xl shadow-2xl ${
-                isDark 
-                  ? 'bg-gray-800/80 border border-gray-700/50' 
-                  : 'bg-white border border-gray-200'
+            <div className={`transition-all duration-1000 delay-400 ${hasAnimated ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
               }`}>
-                <h3 className={`text-2xl font-bold mb-6 ${
-                  isDark ? 'text-white' : 'text-gray-900'
+              <div className={`p-8 rounded-2xl shadow-2xl ${isDark
+                  ? 'bg-gray-800/80 border border-gray-700/50'
+                  : 'bg-white border border-gray-200'
                 }`}>
+                <h3 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'
+                  }`}>
                   Request a Call Back
                 </h3>
 
@@ -235,11 +224,10 @@ const ContactSection = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${
-                        isDark 
-                          ? 'bg-gray-700 text-white placeholder-gray-400' 
+                      className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
+                          ? 'bg-gray-700 text-white placeholder-gray-400'
                           : 'bg-gray-100 text-gray-900 placeholder-gray-500'
-                      }`}
+                        }`}
                     />
                     <input
                       type="email"
@@ -248,11 +236,10 @@ const ContactSection = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${
-                        isDark 
-                          ? 'bg-gray-700 text-white placeholder-gray-400' 
+                      className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
+                          ? 'bg-gray-700 text-white placeholder-gray-400'
                           : 'bg-gray-100 text-gray-900 placeholder-gray-500'
-                      }`}
+                        }`}
                     />
                   </div>
 
@@ -263,11 +250,10 @@ const ContactSection = () => {
                     value={formData.phone}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${
-                      isDark 
-                        ? 'bg-gray-700 text-white placeholder-gray-400' 
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
+                        ? 'bg-gray-700 text-white placeholder-gray-400'
                         : 'bg-gray-100 text-gray-900 placeholder-gray-500'
-                    }`}
+                      }`}
                   />
 
                   <select
@@ -275,11 +261,10 @@ const ContactSection = () => {
                     value={formData.country}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${
-                      isDark 
-                        ? 'bg-gray-700 text-white' 
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
+                        ? 'bg-gray-700 text-white'
                         : 'bg-gray-100 text-gray-900'
-                    }`}
+                      }`}
                   >
                     <option value="">Select Country</option>
                     <option value="nigeria">Nigeria</option>
@@ -294,11 +279,10 @@ const ContactSection = () => {
                     value={formData.service}
                     onChange={handleInputChange}
                     required
-                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${
-                      isDark 
-                        ? 'bg-gray-700 text-white' 
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
+                        ? 'bg-gray-700 text-white'
                         : 'bg-gray-100 text-gray-900'
-                    }`}
+                      }`}
                   >
                     <option value="">Select Service</option>
                     <option value="life">Life Insurance</option>
@@ -318,11 +302,10 @@ const ContactSection = () => {
                     onChange={handleInputChange}
                     rows="4"
                     required
-                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all resize-none ${
-                      isDark 
-                        ? 'bg-gray-700 text-white placeholder-gray-400' 
+                    className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all resize-none ${isDark
+                        ? 'bg-gray-700 text-white placeholder-gray-400'
                         : 'bg-gray-100 text-gray-900 placeholder-gray-500'
-                    }`}
+                      }`}
                   ></textarea>
 
                   <button

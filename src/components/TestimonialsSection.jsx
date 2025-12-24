@@ -105,11 +105,10 @@ const TestimonialsSection = () => {
 
   return (
     <div className={isDark ? 'dark' : ''}>
-      <section 
+      <section
         ref={sectionRef}
-        className={`relative py-16 md:py-24 lg:py-32 overflow-hidden ${
-          isDark ? 'bg-gray-900' : 'bg-gray-50'
-        } transition-colors duration-300`}
+        className={`relative py-16 md:py-24 lg:py-32 overflow-hidden ${isDark ? 'bg-gray-900' : 'bg-gray-50'
+          } transition-colors duration-300`}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -119,33 +118,29 @@ const TestimonialsSection = () => {
           }} />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${
-            hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}>
+          <div className={`text-center mb-12 md:mb-16 transition-all duration-1000 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}>
             <div className="inline-block mb-4">
               <span className="text-green-400 text-sm font-semibold tracking-wider uppercase">
                 Testimonials
               </span>
             </div>
-            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
               What Our <span className="text-green-400">Clients Say</span>
             </h2>
           </div>
 
           {/* Testimonial Card */}
-          <div className={`max-w-4xl mx-auto transition-all duration-1000 delay-300 ${
-            hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
-          }`}>
-            <div className={`relative rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl ${
-              isDark 
-                ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50' 
+          <div className={`max-w-4xl mx-auto transition-all duration-1000 delay-300 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+            }`}>
+            <div className={`relative rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl ${isDark
+                ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50'
                 : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
-            } backdrop-blur-sm`}>
-              
+              } backdrop-blur-sm`}>
+
               {/* Quote Icon */}
               <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
                 <div className="w-16 h-16 rounded-full bg-gradient-to-br from-green-400 to-green-600 flex items-center justify-center shadow-lg">
@@ -165,25 +160,21 @@ const TestimonialsSection = () => {
               </div>
 
               {/* Quote Text */}
-              <div className={`transition-all duration-500 ${
-                isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
-              }`}>
-                <p className={`text-lg sm:text-xl md:text-2xl text-center leading-relaxed mb-8 ${
-                  isDark ? 'text-gray-300' : 'text-gray-700'
-                } font-light italic`}>
+              <div className={`transition-all duration-500 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
+                }`}>
+                <p className={`text-lg sm:text-xl md:text-2xl text-center leading-relaxed mb-8 ${isDark ? 'text-gray-300' : 'text-gray-700'
+                  } font-light italic`}>
                   "{testimonials[currentIndex].quote}"
                 </p>
 
                 {/* Author Info */}
                 <div className="text-center">
-                  <h4 className={`text-xl font-bold mb-1 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  }`}>
+                  <h4 className={`text-xl font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'
+                    }`}>
                     {testimonials[currentIndex].name}
                   </h4>
-                  <p className={`text-sm ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
+                  <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
                     {testimonials[currentIndex].position}
                   </p>
                 </div>
@@ -194,11 +185,10 @@ const TestimonialsSection = () => {
                 <button
                   onClick={handlePrevious}
                   disabled={isTransitioning}
-                  className={`pointer-events-auto w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    isDark 
-                      ? 'bg-gray-700 hover:bg-gray-600 text-white' 
+                  className={`pointer-events-auto w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${isDark
+                      ? 'bg-gray-700 hover:bg-gray-600 text-white'
                       : 'bg-white hover:bg-gray-100 text-gray-900'
-                  } shadow-lg hover:shadow-xl hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    } shadow-lg hover:shadow-xl hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed`}
                   aria-label="Previous testimonial"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -209,11 +199,10 @@ const TestimonialsSection = () => {
                 <button
                   onClick={handleNext}
                   disabled={isTransitioning}
-                  className={`pointer-events-auto w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
-                    isDark 
-                      ? 'bg-gray-700 hover:bg-gray-600 text-white' 
+                  className={`pointer-events-auto w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${isDark
+                      ? 'bg-gray-700 hover:bg-gray-600 text-white'
                       : 'bg-white hover:bg-gray-100 text-gray-900'
-                  } shadow-lg hover:shadow-xl hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed`}
+                    } shadow-lg hover:shadow-xl hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed`}
                   aria-label="Next testimonial"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -230,11 +219,10 @@ const TestimonialsSection = () => {
                   key={index}
                   onClick={() => goToSlide(index)}
                   disabled={isTransitioning}
-                  className={`transition-all duration-300 rounded-full ${
-                    index === currentIndex 
-                      ? 'w-12 h-3 bg-green-400' 
+                  className={`transition-all duration-300 rounded-full ${index === currentIndex
+                      ? 'w-12 h-3 bg-green-400'
                       : 'w-3 h-3 bg-gray-400 hover:bg-gray-500'
-                  } disabled:cursor-not-allowed`}
+                    } disabled:cursor-not-allowed`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
               ))}

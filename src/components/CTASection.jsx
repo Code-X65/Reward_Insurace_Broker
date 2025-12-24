@@ -60,8 +60,8 @@ const CTASection = () => {
       <section
         ref={sectionRef}
         className={`relative py-20 md:py-32 overflow-hidden ${isDark
-            ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-green-900'
-            : 'bg-gradient-to-br from-green-500 via-green-600 to-green-700'
+          ? 'bg-gradient-to-br from-gray-900 via-gray-800 to-green-900'
+          : 'bg-gradient-to-br from-green-500 via-green-600 to-green-700'
           } transition-colors duration-500`}
       >
         {/* Decorative Elements */}
@@ -75,7 +75,7 @@ const CTASection = () => {
           </svg>
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className={`max-w-4xl mx-auto text-center transition-all duration-1000 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}>
 

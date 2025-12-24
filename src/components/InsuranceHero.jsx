@@ -173,8 +173,8 @@ const InsuranceHero = () => {
         </div>
 
         {/* Content Container */}
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-2 py-12 lg:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 items-center">
 
             {/* Left Side: Main Content */}
             <div className="space-y-8">
@@ -283,8 +283,8 @@ const InsuranceHero = () => {
               </div>
             </div>
             {/* Right Side: Embedded Premium Form */}
-            <div className="relative group hidden md:block">
-              <div className={`relative w-full max-w-md mx-auto rounded-3xl shadow-2xl transform transition-all duration-500 hover:shadow-green-500/10 ${isDark ? 'bg-gray-900/40 border border-gray-800' : 'bg-white/80 border border-gray-100'
+            <div className="hidden md:flex justify-end lg:pr-0">
+              <div className={`relative w-full max-w-md ml-auto rounded-3xl shadow-2xl transform transition-all duration-500 hover:shadow-green-500/10 ${isDark ? 'bg-gray-900/40 border border-gray-800' : 'bg-white/80 border border-gray-100'
                 } backdrop-blur-xl overflow-hidden`}>
 
                 <div className="p-8">

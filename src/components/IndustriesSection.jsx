@@ -110,10 +110,9 @@ const IndustriesSection = () => {
 
   return (
     <div className={isDark ? 'dark' : ''} id='industries'>
-      <section 
-        className={`relative py-16 md:py-24 overflow-hidden ${
-          isDark ? 'bg-slate-950' : 'bg-white'
-        } transition-colors duration-500`}
+      <section
+        className={`relative py-16 md:py-24 overflow-hidden ${isDark ? 'bg-slate-950' : 'bg-white'
+          } transition-colors duration-500`}
       >
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -123,23 +122,21 @@ const IndustriesSection = () => {
           }} />
         </div>
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
           <div className="text-center mb-16 md:mb-20">
             <div className="inline-flex items-center gap-3 mb-6 px-4 py-2 rounded-full bg-gradient-to-r from-green-500 to-green-500 text-white text-sm font-medium">
               <span>Industries We Serve</span>
               <span className="w-2 h-2 bg-white rounded-full animate-pulse" />
             </div>
-            
-            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 sm:mb-6 ${
-              isDark ? 'text-white' : 'text-gray-900'
-            }`}>
+
+            <h2 className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-4 sm:mb-6 ${isDark ? 'text-white' : 'text-gray-900'
+              }`}>
               Specialized Solutions for <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-500">Every Sector</span>
             </h2>
-            
-            <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4 ${
-              isDark ? 'text-gray-400' : 'text-gray-600'
-            }`}>
+
+            <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4 ${isDark ? 'text-gray-400' : 'text-gray-600'
+              }`}>
               We understand that different industries have unique risks. Our expertise spans across multiple sectors.
             </p>
           </div>
@@ -149,11 +146,10 @@ const IndustriesSection = () => {
             {industries.map((industry, index) => (
               <div
                 key={index}
-                className={`group relative p-8 rounded-2xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden ${
-                  isDark 
-                    ? 'bg-gray-900/50 border border-gray-800 hover:border-green-500/50' 
+                className={`group relative p-8 rounded-2xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden ${isDark
+                    ? 'bg-gray-900/50 border border-gray-800 hover:border-green-500/50'
                     : 'bg-white border border-gray-200 hover:border-green-500/50'
-                } hover:shadow-xl hover:shadow-green-500/10`}
+                  } hover:shadow-xl hover:shadow-green-500/10`}
               >
                 {/* Background Gradient on Hover */}
                 <div className={`absolute inset-0  opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
@@ -167,15 +163,13 @@ const IndustriesSection = () => {
 
                 {/* Content */}
                 <div className="relative">
-                  <h3 className={`text-xl font-bold mb-3 ${
-                    isDark ? 'text-white' : 'text-gray-900'
-                  } group-hover:text-green-500 transition-colors`}>
+                  <h3 className={`text-xl font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'
+                    } group-hover:text-green-500 transition-colors`}>
                     {industry.title}
                   </h3>
 
-                  <p className={`text-sm leading-relaxed ${
-                    isDark ? 'text-gray-400' : 'text-gray-600'
-                  }`}>
+                  <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'
+                    }`}>
                     {industry.description}
                   </p>
                 </div>

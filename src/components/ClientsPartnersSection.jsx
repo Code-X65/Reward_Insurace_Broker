@@ -7,15 +7,15 @@ import img05 from '../assets/partners/img05.png'
 import img06 from '../assets/partners/img06.png'
 import img07 from '../assets/partners/img07.png'
 import img08 from '../assets/partners/img08.png'
-import img09 from '../assets/partners/img09.webp'
-import img10 from '../assets/partners/img10.webp'
+import img09 from '../assets/partners/img09.png'
+import img10 from '../assets/partners/img10.png'
 import img11 from '../assets/partners/img11.png'
 import img12 from '../assets/partners/img12.png'
 import img13 from '../assets/partners/img13.png'
-import img14 from '../assets/partners/img14.jpg'
+import img14 from '../assets/partners/img14.png'
 import img15 from '../assets/partners/img15.png'
 import img16 from '../assets/partners/img16.png'
-import img17 from '../assets/partners/img17.jpg'
+import img17 from '../assets/partners/img17.png'
 import img18 from '../assets/partners/img18.png'
 import img19 from '../assets/partners/img19.png'
 
@@ -29,7 +29,7 @@ const ClientsPartnersSection = () => {
   const headerRef = useRef(null);
   const ctaRef = useRef(null);
   const [hasAnimated, setHasAnimated] = useState(false);
-  
+
   // Refs for carousel control
   const carouselRef = useRef(null);
   const animationRef = useRef(null);
@@ -60,7 +60,7 @@ const ClientsPartnersSection = () => {
         entries.forEach((entry) => {
           if (entry.isIntersecting && !hasAnimated) {
             setHasAnimated(true);
-            
+
             if (headerRef.current) {
               setTimeout(() => {
                 headerRef.current.style.opacity = '1';
@@ -129,21 +129,21 @@ const ClientsPartnersSection = () => {
 
     const carousel = carouselRef.current;
     const scrollSpeed = 0.5; // pixels per frame
-    
+
     carousel.scrollLeft += scrollSpeed;
-    
+
     // Reset to create infinite effect
     if (carousel.scrollLeft >= carousel.scrollWidth / 3) {
       carousel.scrollLeft = 0;
     }
-    
+
     animationRef.current = requestAnimationFrame(animateCarousel);
   }, []);
 
   // Start animation on mount and clean up
   useEffect(() => {
     animationRef.current = requestAnimationFrame(animateCarousel);
-    
+
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
@@ -168,24 +168,22 @@ const ClientsPartnersSection = () => {
 
   return (
     <div className={isDark ? 'dark' : ''}>
-      <section 
+      <section
         ref={sectionRef}
-        className={`relative py-4 md:py-10 lg:py-14 overflow-hidden ${
-          isDark ? 'bg-slate-950' : 'bg-gray-50'
-        } transition-colors duration-300`}
+        className={`relative py-10 md:py-10 lg:py-14 overflow-hidden ${isDark ? 'bg-slate-950' : 'bg-gray-50'
+          } transition-colors duration-300`}
       >
         {/* Decorative Background Elements */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-green-500/5 rounded-full blur-3xl" />
         <div className="absolute bottom-20 right-10 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl" />
 
-        <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Decorative Divider */}
           <div className="relative mb-16 md:mb-24">
             <div className={`h-px w-full ${isDark ? 'bg-gray-800' : 'bg-gray-300'}`} />
             <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-              <div className={`p-3 rounded-full ${
-                isDark ? 'bg-gray-900 border-2 border-gray-800' : 'bg-gray-50 border-2 border-gray-300'
-              }`}>
+              <div className={`p-3 rounded-full ${isDark ? 'bg-gray-900 border-2 border-gray-800' : 'bg-gray-50 border-2 border-gray-300'
+                }`}>
                 <svg className="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
@@ -196,9 +194,8 @@ const ClientsPartnersSection = () => {
           {/* Partners Carousel */}
           <div>
             <div className="text-center mb-8">
-              <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${
-                isDark ? 'text-gray-500' : 'text-gray-400'
-              }`}>
+              <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'
+                }`}>
                 INSURANCE PARTNERS
               </h3>
             </div>
@@ -206,15 +203,15 @@ const ClientsPartnersSection = () => {
             {/* Improved Carousel Container */}
             <div className="relative">
               {/* Gradient overlays for smooth edges */}
-              
-              
+
+
               {/* Carousel with improved scrolling */}
-              <div 
+              <div
                 ref={carouselRef}
                 className="flex overflow-x-hidden scrollbar-hide py-8"
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
-                style={{ 
+                style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none'
                 }}
@@ -235,7 +232,7 @@ const ClientsPartnersSection = () => {
                           draggable="false"
                         />
                         {/* Hover effect overlay */}
-                       
+
                       </div>
                     </div>
                   ))}
