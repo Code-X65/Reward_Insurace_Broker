@@ -1,8 +1,39 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { Shield, Phone, Heart, CheckCircle, ArrowRight, Star, User, Mail, ChevronDown, X } from 'lucide-react';
 import { useForm } from '../context/FormContext';
+import img01 from '../assets/partners/vertias.png';
+import img02 from '../assets/partners/img02.webp';
+import img03 from '../assets/partners/img03.png';
+import img04 from '../assets/partners/img04.png';
+import img05 from '../assets/partners/img05.png';
+import img06 from '../assets/partners/img06.png';
+import img07 from '../assets/partners/img07.png';
+import img08 from '../assets/partners/img08.png';
+import img09 from '../assets/partners/img09.png';
+import img10 from '../assets/partners/img10.png';
+import img11 from '../assets/partners/img11.png';
+import img12 from '../assets/partners/img12.png';
+import img13 from '../assets/partners/img13.png';
+import img14 from '../assets/partners/img14.png';
+import img15 from '../assets/partners/img15.png';
+import img16 from '../assets/partners/img16.png';
+import img17 from '../assets/partners/img17.png';
+import img18 from '../assets/partners/img18.png';
+import img19 from '../assets/partners/img19.png';
 
 const InsuranceHero = () => {
+
+  // Partner logos array
+  const allPartnerLogos = [
+    img01, img02, img03, img04, img05, img06, img07, img08, img09, img10,
+    img11, img12, img13, img14, img15, img16, img17, img18, img19
+  ];
+
+  // Randomly select 4 partner logos (memoized to prevent re-shuffling on re-renders)
+  const selectedPartners = useMemo(() => {
+    const shuffled = [...allPartnerLogos].sort(() => Math.random() - 0.5);
+    return shuffled.slice(0, 4);
+  }, []);
 
   // --- 1. THEME LOGIC ---
   const [isDark, setIsDark] = useState(() => {
@@ -186,9 +217,9 @@ const InsuranceHero = () => {
               >
                 <div className="flex items-center gap-4 mb-6">
                   <div className="flex -space-x-3">
-                    {[1, 2, 3, 4].map((i) => (
-                      <div key={i} className={`w-10 h-10 rounded-full border-2 ${isDark ? 'border-gray-900' : 'border-white'} overflow-hidden`}>
-                        <img src={`https://i.pravatar.cc/100?img=${i + 10}`} alt="User" className="w-full h-full object-cover" />
+                    {selectedPartners.map((partner, i) => (
+                      <div key={i} className={`w-10 h-10 rounded-full border-2 ${isDark ? 'border-gray-900 bg-white' : 'border-white bg-white'} overflow-hidden flex items-center justify-center p-1`}>
+                        <img src={partner} alt={`Partner ${i + 1}`} className="w-full h-full object-contain" />
                       </div>
                     ))}
                     <div className={`w-10 h-10 rounded-full border-2 ${isDark ? 'border-gray-900 bg-green-600' : 'border-white bg-green-500'} flex items-center justify-center text-xs text-white font-bold`}>

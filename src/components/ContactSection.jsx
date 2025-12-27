@@ -178,12 +178,12 @@ const ContactSection = () => {
                 <div
                   key={index}
                   className={`flex items-start space-x-4 p-6 rounded-xl transition-all duration-300 hover:scale-105 ${isDark
-                      ? 'bg-gray-800/50 hover:bg-gray-800/70'
-                      : 'bg-gray-50 hover:bg-gray-100'
+                    ? 'bg-gray-800/50 hover:bg-gray-800/70'
+                    : 'bg-gray-50 hover:bg-gray-100'
                     }`}
                 >
                   <div className="flex-shrink-0">
-                    <div className="w-12 h-12 rounded-lg bg-green-400 flex items-center justify-center text-gray-900">
+                    <div className="w-12 h-12 rounded-lg bg-green-400 flex items-center justify-center text-white">
                       {info.icon}
                     </div>
                   </div>
@@ -207,8 +207,8 @@ const ContactSection = () => {
             <div className={`transition-all duration-1000 delay-400 ${hasAnimated ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
               }`}>
               <div className={`p-8 rounded-2xl shadow-2xl ${isDark
-                  ? 'bg-gray-800/80 border border-gray-700/50'
-                  : 'bg-white border border-gray-200'
+                ? 'bg-gray-800/80 border border-gray-700/50'
+                : 'bg-white border border-gray-200'
                 }`}>
                 <h3 className={`text-2xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'
                   }`}>
@@ -225,8 +225,8 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       required
                       className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
-                          ? 'bg-gray-700 text-white placeholder-gray-400'
-                          : 'bg-gray-100 text-gray-900 placeholder-gray-500'
+                        ? 'bg-gray-700 text-white placeholder-gray-400'
+                        : 'bg-gray-100 text-gray-900 placeholder-gray-500'
                         }`}
                     />
                     <input
@@ -237,8 +237,8 @@ const ContactSection = () => {
                       onChange={handleInputChange}
                       required
                       className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
-                          ? 'bg-gray-700 text-white placeholder-gray-400'
-                          : 'bg-gray-100 text-gray-900 placeholder-gray-500'
+                        ? 'bg-gray-700 text-white placeholder-gray-400'
+                        : 'bg-gray-100 text-gray-900 placeholder-gray-500'
                         }`}
                     />
                   </div>
@@ -251,8 +251,8 @@ const ContactSection = () => {
                     onChange={handleInputChange}
                     required
                     className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
-                        ? 'bg-gray-700 text-white placeholder-gray-400'
-                        : 'bg-gray-100 text-gray-900 placeholder-gray-500'
+                      ? 'bg-gray-700 text-white placeholder-gray-400'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500'
                       }`}
                   />
 
@@ -262,8 +262,8 @@ const ContactSection = () => {
                     onChange={handleInputChange}
                     required
                     className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
-                        ? 'bg-gray-700 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                      ? 'bg-gray-700 text-white'
+                      : 'bg-gray-100 text-gray-900'
                       }`}
                   >
                     <option value="">Select Country</option>
@@ -280,8 +280,8 @@ const ContactSection = () => {
                     onChange={handleInputChange}
                     required
                     className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all ${isDark
-                        ? 'bg-gray-700 text-white'
-                        : 'bg-gray-100 text-gray-900'
+                      ? 'bg-gray-700 text-white'
+                      : 'bg-gray-100 text-gray-900'
                       }`}
                   >
                     <option value="">Select Service</option>
@@ -303,8 +303,8 @@ const ContactSection = () => {
                     rows="4"
                     required
                     className={`w-full px-4 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 transition-all resize-none ${isDark
-                        ? 'bg-gray-700 text-white placeholder-gray-400'
-                        : 'bg-gray-100 text-gray-900 placeholder-gray-500'
+                      ? 'bg-gray-700 text-white placeholder-gray-400'
+                      : 'bg-gray-100 text-gray-900 placeholder-gray-500'
                       }`}
                   ></textarea>
 

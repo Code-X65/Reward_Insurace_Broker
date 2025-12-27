@@ -137,8 +137,8 @@ const TestimonialsSection = () => {
           <div className={`max-w-4xl mx-auto transition-all duration-1000 delay-300 ${hasAnimated ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
             }`}>
             <div className={`relative rounded-3xl p-8 sm:p-12 md:p-16 shadow-2xl ${isDark
-                ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50'
-                : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
+              ? 'bg-gradient-to-br from-gray-800/80 to-gray-900/80 border border-gray-700/50'
+              : 'bg-gradient-to-br from-white to-gray-50 border border-gray-200'
               } backdrop-blur-sm`}>
 
               {/* Quote Icon */}
@@ -162,7 +162,7 @@ const TestimonialsSection = () => {
               {/* Quote Text */}
               <div className={`transition-all duration-500 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
                 }`}>
-                <p className={`text-lg sm:text-xl md:text-2xl text-center leading-relaxed mb-8 ${isDark ? 'text-gray-300' : 'text-gray-700'
+                <p className={`px-10 text-lg sm:text-xl md:text-2xl text-center leading-relaxed mb-8 ${isDark ? 'text-gray-300' : 'text-gray-700'
                   } font-light italic`}>
                   "{testimonials[currentIndex].quote}"
                 </p>
@@ -186,8 +186,8 @@ const TestimonialsSection = () => {
                   onClick={handlePrevious}
                   disabled={isTransitioning}
                   className={`pointer-events-auto w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${isDark
-                      ? 'bg-gray-700 hover:bg-gray-600 text-white'
-                      : 'bg-white hover:bg-gray-100 text-gray-900'
+                    ? 'bg-gray-700 hover:bg-gray-600 text-white'
+                    : 'bg-white hover:bg-gray-100 text-gray-900'
                     } shadow-lg hover:shadow-xl hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed`}
                   aria-label="Previous testimonial"
                 >
@@ -200,8 +200,8 @@ const TestimonialsSection = () => {
                   onClick={handleNext}
                   disabled={isTransitioning}
                   className={`pointer-events-auto w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${isDark
-                      ? 'bg-gray-700 hover:bg-gray-600 text-white'
-                      : 'bg-white hover:bg-gray-100 text-gray-900'
+                    ? 'bg-gray-700 hover:bg-gray-600 text-white'
+                    : 'bg-white hover:bg-gray-100 text-gray-900'
                     } shadow-lg hover:shadow-xl hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed`}
                   aria-label="Next testimonial"
                 >
@@ -220,8 +220,8 @@ const TestimonialsSection = () => {
                   onClick={() => goToSlide(index)}
                   disabled={isTransitioning}
                   className={`transition-all duration-300 rounded-full ${index === currentIndex
-                      ? 'w-12 h-3 bg-green-400'
-                      : 'w-3 h-3 bg-gray-400 hover:bg-gray-500'
+                    ? 'w-12 h-3 bg-green-400'
+                    : 'w-3 h-3 bg-gray-400 hover:bg-gray-500'
                     } disabled:cursor-not-allowed`}
                   aria-label={`Go to testimonial ${index + 1}`}
                 />
