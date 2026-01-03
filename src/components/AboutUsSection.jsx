@@ -117,7 +117,7 @@ const AboutUsSection = () => {
                 </svg>
               </span>
             </h2>
-            <p className={`text-lg leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'
+            <p className={`text-lg leading-relaxed ${isDark ? 'text-gray-400' : 'text-black font-medium'
               }`}>
               The uniqueness of our service is found in our capability to ensure that you get what you need from your insurers, not just what they want to sell to you. We are your advocates.
             </p>
@@ -142,7 +142,7 @@ const AboutUsSection = () => {
                 <div className={`text-3xl font-bold mb-1 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   {stat.number}
                 </div>
-                <div className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                <div className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-900'}`}>
                   {stat.label}
                 </div>
               </div>
@@ -160,7 +160,7 @@ const AboutUsSection = () => {
                 <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                   Your Trusted Insurance Partner
                 </h3>
-                <p className={`mb-6 leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                <p className={`mb-6 leading-relaxed ${isDark ? 'text-gray-300' : 'text-black'}`}>
                   We have carved a solid reputation as an efficient, innovative, and dynamic Insurance Broker in Nigeria and the international market. Our commitment is to provide tailored insurance solutions that protect what matters most to you.
                 </p>
 
@@ -171,7 +171,7 @@ const AboutUsSection = () => {
                         }`}>
                         <CheckCircle className="w-4 h-4" />
                       </div>
-                      <span className={`font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                      <span className={`font-medium ${isDark ? 'text-gray-300' : 'text-black'}`}>
                         {benefit}
                       </span>
                     </div>
@@ -199,7 +199,7 @@ const AboutUsSection = () => {
                   <h4 className={`text-lg font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     {feature.title}
                   </h4>
-                  <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-black'}`}>
                     {feature.description}
                   </p>
                 </div>

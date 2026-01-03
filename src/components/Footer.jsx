@@ -118,23 +118,23 @@ const Footer = () => {
                 <img src={Logo} alt="Rewards Insurance Logo" className="w-full h-full object-contain" />
               </div>
               <div>
-                <div className={`font-bold text-xl ${isDark ? 'text-white' : 'text-gray-900'}`}>
+                <div className={`font-bold text-xl ${isDark ? 'text-white' : 'text-black'}`}>
                   Rewards
                 </div>
-                <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-black font-medium'}`}>
                   Insurance Brokers Limited
                 </div>
               </div>
             </div>
 
-            <p className={`${isDark ? 'text-gray-400' : 'text-gray-600'
+            <p className={`${isDark ? 'text-gray-400' : 'text-black'
               } text-sm mb-8 max-w-md leading-relaxed`}>
               Your trusted partner for comprehensive insurance solutions in Nigeria. We carve a solid reputation as an efficient, innovative, and dynamic Insurance Broker.
             </p>
 
             {/* Contact Info */}
             <div className="space-y-3">
-              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-black'
                 }`}>
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-800/50' : 'bg-green-500/10'
                   }`}>
@@ -145,7 +145,7 @@ const Footer = () => {
                 <span>+234 803 390 6410</span>
               </div>
 
-              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-black'
                 }`}>
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-800/50' : 'bg-green-500/10'
                   }`}>
@@ -156,7 +156,7 @@ const Footer = () => {
                 <span>rewardsbrokers@yahoo.com</span>
               </div>
 
-              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+              <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-black'
                 }`}>
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${isDark ? 'bg-gray-800/50' : 'bg-green-500/10'
                   }`}>
@@ -181,7 +181,7 @@ const Footer = () => {
                 <li key={service.name}>
                   <button
                     onClick={(e) => handleNavigation(e, 'services')}
-                    className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                    className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-black hover:text-green-600'
                       } flex items-center gap-2 group`}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
@@ -205,7 +205,7 @@ const Footer = () => {
                     <li key={item.name}>
                       <a
                         href={item.href}
-                        className={`hover:text-green-500 transition-colors text-sm ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                        className={`hover:text-green-500 transition-colors text-sm ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-black hover:text-green-600'
                           } flex items-center gap-2 group`}
                       >
                         <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
@@ -220,7 +220,7 @@ const Footer = () => {
                   <li key={item.name}>
                     <button
                       onClick={(e) => handleNavigation(e, sectionId)}
-                      className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                      className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-black hover:text-green-600'
                         } flex items-center gap-2 group`}
                     >
                       <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
@@ -244,7 +244,7 @@ const Footer = () => {
                   <Link
                     to={item.href}
                     onClick={() => window.scrollTo(0, 0)}
-                    className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-gray-600 hover:text-green-600'
+                    className={`hover:text-green-500 transition-colors text-sm text-left w-full ${isDark ? 'text-gray-400 hover:text-green-400' : 'text-black hover:text-green-600'
                       } flex items-center gap-2 group`}
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-green-500 opacity-0 group-hover:opacity-100 transition-opacity"></span>
@@ -265,7 +265,7 @@ const Footer = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             {/* Copyright */}
-            <p className={`text-sm text-center md:text-left ${isDark ? 'text-gray-500' : 'text-gray-600'
+            <p className={`text-sm text-center md:text-left ${isDark ? 'text-gray-500' : 'text-black font-medium'
               }`}>
               © 2025 Rewards Insurance Brokers Limited. All rights reserved.
             </p>

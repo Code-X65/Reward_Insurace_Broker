@@ -230,7 +230,7 @@ const InsuranceHero = () => {
                     <div className="flex text-yellow-400">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
                     </div>
-                    <span className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>Trusted by 20+ businesses</span>
+                    <span className={`text-sm font-bold ${isDark ? 'text-gray-400' : 'text-black'}`}>Trusted by 20+ businesses</span>
                   </div>
                 </div>
               </div>
@@ -257,7 +257,7 @@ const InsuranceHero = () => {
               {/* Description */}
               <p
                 ref={descriptionRef}
-                className={`text-lg sm:text-xl leading-relaxed opacity-0 translate-y-8 transition-all duration-1000 ease-out ${isDark ? 'text-gray-300' : 'text-slate-600'
+                className={`text-lg sm:text-xl leading-relaxed opacity-0 translate-y-8 transition-all duration-1000 ease-out ${isDark ? 'text-gray-300' : 'text-black font-medium'
                   }`}
               >
                 Focus on tailored solutions for businesses and organizations with our comprehensive insurance plans designed to protect what matters most.
@@ -279,7 +279,7 @@ const InsuranceHero = () => {
                   href='#contact'
                   className={`px-8 py-4 rounded-xl font-semibold transition-all duration-300 flex items-center justify-center space-x-2 border-2 ${isDark
                     ? 'border-gray-700 text-white hover:bg-gray-800'
-                    : 'border-gray-200 text-slate-700 hover:bg-gray-50 hover:border-gray-300'
+                    : 'border-gray-300 text-black hover:bg-gray-50 hover:border-gray-400'
                     }`}
                 >
                   <Phone className="w-5 h-5" />
@@ -305,7 +305,7 @@ const InsuranceHero = () => {
                       <span className={`block text-sm font-semibold ${isDark ? 'text-white' : 'text-gray-900'}`}>
                         {feature.text}
                       </span>
-                      <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                      <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-black font-medium'}`}>
                         {feature.desc}
                       </span>
                     </div>
@@ -331,7 +331,7 @@ const InsuranceHero = () => {
                     <h3 className={`text-2xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                       Get Your Free Quote
                     </h3>
-                    <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                    <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-black font-medium'}`}>
                       Complete the form below to start your protection journey.
                     </p>
                   </div>
@@ -344,7 +344,7 @@ const InsuranceHero = () => {
                       <h4 className={`text-2xl font-bold mb-3 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                         Request Sent!
                       </h4>
-                      <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                      <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-black font-semibold'}`}>
                         Our specialists will reach out to you within 24 hours.
                       </p>
                       <button
@@ -358,7 +358,7 @@ const InsuranceHero = () => {
                     <form className="space-y-5" onSubmit={handleSubmit}>
                       <div className="space-y-4">
                         <div className="space-y-1.5">
-                          <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Full Name</label>
+                          <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-black'}`}>Full Name</label>
                           <div className="relative">
                             <User className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? 'text-gray-500' : 'text-gray-400'}`} />
                             <input
@@ -377,7 +377,7 @@ const InsuranceHero = () => {
                         </div>
 
                         <div className="space-y-1.5">
-                          <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Email Address</label>
+                          <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-black'}`}>Email Address</label>
                           <div className="relative">
                             <Mail className={`absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 ${isDark ? 'text-gray-500' : 'text-gray-400'}`} />
                             <input
@@ -397,7 +397,7 @@ const InsuranceHero = () => {
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Insurance Category</label>
+                        <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-black'}`}>Insurance Category</label>
                         <div className="relative">
                           <select
                             required
@@ -420,7 +420,7 @@ const InsuranceHero = () => {
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>Specific Interest</label>
+                        <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${isDark ? 'text-gray-500' : 'text-black'}`}>Specific Interest</label>
                         <div className="relative">
                           <select
                             required

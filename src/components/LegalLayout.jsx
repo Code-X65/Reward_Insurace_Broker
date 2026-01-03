@@ -40,19 +40,19 @@ const LegalLayout = ({ title, children, lastUpdated }) => {
                         <header className="mb-10 text-center md:text-left">
                             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-green-500">{title}</h1>
                             {lastUpdated && (
-                                <p className={`text-sm font-medium ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
+                                <p className={`text-sm font-bold ${isDark ? 'text-gray-400' : 'text-black'}`}>
                                     Last Updated: {lastUpdated}
                                 </p>
                             )}
                             <div className="mt-6 h-1 w-20 bg-green-500 rounded-full mx-auto md:mx-0"></div>
                         </header>
 
-                        <div className={`space-y-8 text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                        <div className={`space-y-8 text-lg leading-relaxed ${isDark ? 'text-gray-300' : 'text-black font-medium'}`}>
                             {children}
                         </div>
 
                         <footer className="mt-16 pt-8 border-t border-gray-700/20 text-center">
-                            <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                            <p className={`text-sm ${isDark ? 'text-gray-500' : 'text-black font-semibold'}`}>
                                 © 2025 Rewards Insurance Brokers Limited. All rights reserved.
                             </p>
                         </footer>

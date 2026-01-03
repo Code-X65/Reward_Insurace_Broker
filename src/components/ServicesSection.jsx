@@ -313,7 +313,7 @@ const ServicesSection = () => {
         </h3>
 
         {/* Description */}
-        <p className={`text-sm leading-relaxed mb-6 ${isDark ? 'text-gray-50' : 'text-gray-600'
+        <p className={`text-sm leading-relaxed mb-6 ${isDark ? 'text-gray-50' : 'text-black'
           }`}>
           {service.description}
         </p>
@@ -321,7 +321,7 @@ const ServicesSection = () => {
         {/* Features List */}
         <ul className="space-y-2 mb-6">
           {service.features.slice(0, 3).map((feature, idx) => (
-            <li key={idx} className={`flex items-start gap-2 text-sm ${isDark ? 'text-gray-50' : 'text-gray-600'
+            <li key={idx} className={`flex items-start gap-2 text-sm ${isDark ? 'text-gray-50' : 'text-black font-medium'
               }`}>
               <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
               <span>{feature}</span>
@@ -370,7 +370,7 @@ const ServicesSection = () => {
                 <br className="hidden sm:block" /> Solutions
               </h1>
 
-              <p className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed px-4 ${isDark ? 'text-gray-400' : 'text-gray-600'
+              <p className={`text-base sm:text-lg md:text-xl max-w-2xl mx-auto leading-relaxed px-4 ${isDark ? 'text-gray-400' : 'text-black font-medium'
                 }`}>
                 Tailored protection plans designed for your unique needs and peace of mind.
               </p>
@@ -440,7 +440,7 @@ const ServicesSection = () => {
                   <h3 className={`text-2xl sm:text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                     Need Custom Coverage?
                   </h3>
-                  <p className={`text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                  <p className={`text-sm sm:text-base ${isDark ? 'text-gray-400' : 'text-black'}`}>
                     Our experts will design a personalized insurance plan just for you.
                   </p>
                 </div>
@@ -506,7 +506,7 @@ const ServicesSection = () => {
                       }`}>
                       {selectedService.title}
                     </h2>
-                    <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-gray-600'}`}>
+                    <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>
                       {selectedService.description}
                     </p>
                   </div>
@@ -565,7 +565,7 @@ const ServicesSection = () => {
                     }`}>
                     Overview
                   </h3>
-                  <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-gray-700'
+                  <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-black'
                     }`}>
                     {selectedService.details}
                   </p>

@@ -135,7 +135,7 @@ const IndustriesSection = () => {
               Specialized Solutions for <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-green-500">Every Sector</span>
             </h2>
 
-            <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4 ${isDark ? 'text-gray-400' : 'text-gray-600'
+            <p className={`text-base sm:text-lg md:text-xl max-w-3xl mx-auto leading-relaxed px-4 ${isDark ? 'text-gray-400' : 'text-black font-medium'
               }`}>
               We understand that different industries have unique risks. Our expertise spans across multiple sectors.
             </p>
@@ -147,8 +147,8 @@ const IndustriesSection = () => {
               <div
                 key={index}
                 className={`group relative p-8 rounded-2xl transition-all duration-300 hover:scale-105 cursor-pointer overflow-hidden ${isDark
-                    ? 'bg-gray-900/50 border border-gray-800 hover:border-green-500/50'
-                    : 'bg-white border border-gray-200 hover:border-green-500/50'
+                  ? 'bg-gray-900/50 border border-gray-800 hover:border-green-500/50'
+                  : 'bg-white border border-gray-200 hover:border-green-500/50'
                   } hover:shadow-xl hover:shadow-green-500/10`}
               >
                 {/* Background Gradient on Hover */}
@@ -168,7 +168,7 @@ const IndustriesSection = () => {
                     {industry.title}
                   </h3>
 
-                  <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'
+                  <p className={`text-sm leading-relaxed ${isDark ? 'text-gray-400' : 'text-black font-medium'
                     }`}>
                     {industry.description}
                   </p>

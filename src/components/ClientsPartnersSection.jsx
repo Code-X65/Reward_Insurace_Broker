@@ -194,7 +194,7 @@ const ClientsPartnersSection = () => {
           {/* Partners Carousel */}
           <div>
             <div className="text-center mb-8">
-              <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${isDark ? 'text-gray-500' : 'text-gray-400'
+              <h3 className={`text-xs sm:text-sm font-bold tracking-widest uppercase ${isDark ? 'text-gray-500' : 'text-black'
                 }`}>
                 INSURANCE PARTNERS
               </h3>

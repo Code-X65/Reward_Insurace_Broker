@@ -162,7 +162,7 @@ const TestimonialsSection = () => {
               {/* Quote Text */}
               <div className={`transition-all duration-500 ${isTransitioning ? 'opacity-0 scale-95' : 'opacity-100 scale-100'
                 }`}>
-                <p className={`px-10 text-lg sm:text-xl md:text-2xl text-center leading-relaxed mb-8 ${isDark ? 'text-gray-300' : 'text-gray-700'
+                <p className={`px-10 text-lg sm:text-xl md:text-2xl text-center leading-relaxed mb-8 ${isDark ? 'text-gray-300' : 'text-black font-medium'
                   } font-light italic`}>
                   "{testimonials[currentIndex].quote}"
                 </p>
@@ -173,7 +173,7 @@ const TestimonialsSection = () => {
                     }`}>
                     {testimonials[currentIndex].name}
                   </h4>
-                  <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-gray-600'
+                  <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-black font-semibold'
                     }`}>
                     {testimonials[currentIndex].position}
                   </p>

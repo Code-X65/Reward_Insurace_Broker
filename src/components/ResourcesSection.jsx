@@ -54,7 +54,7 @@ const ResourcesSection = () => {
                     <h2 className={`text-3xl md:text-5xl font-bold mb-4 ${isDark ? 'text-white' : 'text-gray-900'}`}>
                         Knowledge <span className="text-green-500">Center</span>
                     </h2>
-                    <p className={`max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                    <p className={`max-w-2xl mx-auto text-lg ${isDark ? 'text-gray-400' : 'text-black font-medium'}`}>
                         Explore our resources to better understand how we protect what matters most to you.
                     </p>
                 </div>
@@ -79,7 +79,7 @@ const ResourcesSection = () => {
                                 {resource.title}
                             </h3>
 
-                            <p className={`mb-6 leading-relaxed ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
+                            <p className={`mb-6 leading-relaxed ${isDark ? 'text-gray-400' : 'text-black font-medium'}`}>
                                 {resource.description}
                             </p>
 
