@@ -8,6 +8,7 @@ import img06 from '../assets/partners/img06.png'
 import img07 from '../assets/partners/img07.png'
 import img08 from '../assets/partners/img08.png'
 import img09 from '../assets/partners/img09.png'
+import img0901 from '../assets/partners/img09.01.png'
 import img10 from '../assets/partners/img10.png'
 import img11 from '../assets/partners/img11.png'
 import img12 from '../assets/partners/img12.png'
@@ -18,6 +19,7 @@ import img16 from '../assets/partners/img16.png'
 import img17 from '../assets/partners/img17.png'
 import img18 from '../assets/partners/img18.png'
 import img19 from '../assets/partners/img19.png'
+
 
 const ClientsPartnersSection = () => {
   const [isDark, setIsDark] = useState(() => {
@@ -104,7 +106,7 @@ const ClientsPartnersSection = () => {
     { name: '', image: img06 },
     { name: '', image: img07 },
     { name: '', image: img08 },
-    { name: '', image: img09 },
+    { name: '', image: isDark ? img0901 : img09 },
     { name: '', image: img10 },
     { name: '', image: img11 },
     { name: '', image: img12 },

@@ -124,6 +124,9 @@ const Footer = () => {
                 <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-black font-medium'}`}>
                   Insurance Brokers Limited
                 </div>
+                <div className={`text-[10px] font-bold tracking-widest mt-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                  RC NO: 208134
+                </div>
               </div>
             </div>
 
@@ -142,7 +145,10 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                 </div>
-                <span>+234 803 390 6410</span>
+                <div className="flex flex-col">
+                  <span>+234 703 908 1842</span>
+                  <span>+234 809 220 1539</span>
+                </div>
               </div>
 
               <div className={`flex items-start space-x-3 text-sm ${isDark ? 'text-gray-400' : 'text-black'

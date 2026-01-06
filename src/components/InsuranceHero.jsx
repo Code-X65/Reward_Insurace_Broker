@@ -223,14 +223,14 @@ const InsuranceHero = () => {
                       </div>
                     ))}
                     <div className={`w-10 h-10 rounded-full border-2 ${isDark ? 'border-gray-900 bg-green-600' : 'border-white bg-green-500'} flex items-center justify-center text-xs text-white font-bold`}>
-                      +20
+                      +100
                     </div>
                   </div>
                   <div className="flex flex-col">
                     <div className="flex text-yellow-400">
                       {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
                     </div>
-                    <span className={`text-sm font-bold ${isDark ? 'text-gray-400' : 'text-black'}`}>Trusted by 20+ businesses</span>
+                    <span className={`text-sm font-bold ${isDark ? 'text-gray-400' : 'text-black'}`}>Trusted by 100+ businesses</span>
                   </div>
                 </div>
               </div>

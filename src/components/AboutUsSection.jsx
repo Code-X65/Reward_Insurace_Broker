@@ -110,7 +110,7 @@ const AboutUsSection = () => {
             </span>
             <h2 className={`text-3xl sm:text-4xl md:text-5xl font-bold mb-6 ${isDark ? 'text-white' : 'text-gray-900'
               }`}>
-              10+ Years of <span className="text-green-500 relative">
+              15+ Years of <span className="text-green-500 relative">
                 Excellence
                 <svg className="absolute w-full h-2 -bottom-1 left-0 text-green-500 opacity-40" viewBox="0 0 100 10" preserveAspectRatio="none">
                   <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
