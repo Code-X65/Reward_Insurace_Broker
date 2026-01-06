@@ -125,7 +125,7 @@ const Footer = () => {
                   Insurance Brokers Limited
                 </div>
                 <div className={`text-[10px] font-bold tracking-widest mt-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
-                  RC NO: 208134
+                  RC-208134 (General Insurance, Life & Annuity Consultants)
                 </div>
               </div>
             </div>
