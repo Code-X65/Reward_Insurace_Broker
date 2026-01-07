@@ -107,8 +107,8 @@ const ContactSection = () => {
       ),
       title: 'Call Us',
       details: [
-        '+234 803 390 6410',
-        '+234 903 300 6430'
+        '+234 703 908 1842',
+        '+234 809 220 1539'
       ]
     },
     {
@@ -119,8 +119,8 @@ const ContactSection = () => {
       ),
       title: 'Email Us',
       details: [
-        'info@rewardsresourcebrokers.com',
-        'support@rewardsbrokers.com'
+        'rewardsbrokers@yahoo.com',
+
       ]
     },
     {

@@ -147,6 +147,7 @@ const Navbar = () => {
               >
                 <div className="w-10 h-10 flex items-center justify-center">
                   <img src={Logo} alt="Rewards Insurance Logo" />
+                  <p>RC-208134</p>
                 </div>
                 <div className="text-white">
                   <div className="font-bold text-lg">Rewards</div>
