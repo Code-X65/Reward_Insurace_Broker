@@ -94,9 +94,7 @@ const ContactSection = () => {
       ),
       title: 'Visit Us',
       details: [
-        'Suite 11, Canal House',
-        'behind former Kanbi Assurance',
-        'Central Business District, Abuja'
+        'Suite 11, Canal House, Beside Veritas Kapital Assurance, Babatunde Ogala Street, Off Constitution Avenue, Central Business District, Abuja.'
       ]
     },
     {

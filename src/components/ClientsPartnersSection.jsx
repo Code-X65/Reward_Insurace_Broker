@@ -9,12 +9,12 @@ import img07 from '../assets/partners/img07.png'
 import img08 from '../assets/partners/img08.png'
 import img09 from '../assets/partners/img09.png'
 import img0901 from '../assets/partners/img09.01.png'
-import img10 from '../assets/partners/img10.png'
+
 import img11 from '../assets/partners/img11.png'
 import img12 from '../assets/partners/img12.png'
 import img13 from '../assets/partners/img13.png'
-import img14 from '../assets/partners/img14.png'
-import img15 from '../assets/partners/img15.png'
+
+
 import img16 from '../assets/partners/img16.png'
 import img17 from '../assets/partners/img17.png'
 import img18 from '../assets/partners/img18.png'
@@ -107,12 +107,11 @@ const ClientsPartnersSection = () => {
     { name: '', image: img07 },
     { name: '', image: img08 },
     { name: '', image: isDark ? img0901 : img09 },
-    { name: '', image: img10 },
+
     { name: '', image: img11 },
     { name: '', image: img12 },
     { name: '', image: img13 },
-    { name: '', image: img14 },
-    { name: '', image: img15 },
+
     { name: '', image: img16 },
     { name: '', image: img17 },
     { name: '', image: img18 },

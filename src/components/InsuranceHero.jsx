@@ -10,12 +10,11 @@ import img06 from '../assets/partners/img06.png';
 import img07 from '../assets/partners/img07.png';
 import img08 from '../assets/partners/img08.png';
 import img09 from '../assets/partners/img09.png';
-import img10 from '../assets/partners/img10.png';
+
 import img11 from '../assets/partners/img11.png';
 import img12 from '../assets/partners/img12.png';
 import img13 from '../assets/partners/img13.png';
-import img14 from '../assets/partners/img14.png';
-import img15 from '../assets/partners/img15.png';
+
 import img16 from '../assets/partners/img16.png';
 import img17 from '../assets/partners/img17.png';
 import img18 from '../assets/partners/img18.png';
@@ -25,8 +24,8 @@ const InsuranceHero = () => {
 
   // Partner logos array
   const allPartnerLogos = [
-    img01, img02, img03, img04, img05, img06, img07, img08, img09, img10,
-    img11, img12, img13, img14, img15, img16, img17, img18, img19
+    img01, img02, img03, img04, img05, img06, img07, img08, img09,
+    img11, img12, img13, img16, img17, img18, img19
   ];
 
   // Randomly select 4 partner logos (memoized to prevent re-shuffling on re-renders)
