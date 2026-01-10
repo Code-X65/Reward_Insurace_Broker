@@ -1,6 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { CheckCircle, ArrowRight, X } from 'lucide-react';
 import { useForm } from '../context/FormContext';
+import gsap from 'gsap';
 
 // Insurance data
 const lifeInsuranceOptions = [
@@ -53,6 +54,60 @@ const QuoteForm = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+
+  // Refs for animation
+  const mobileContainerRef = useRef(null);
+  const mobileContentRef = useRef(null);
+  const desktopContainerRef = useRef(null);
+  const desktopContentRef = useRef(null);
+
+  // GSAP Entry Animation
+  useLayoutEffect(() => {
+    if (showForm) {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out', duration: 0.6 } });
+
+      // Identify active elements based on visibility
+      const isMobile = window.innerWidth < 1024;
+      const activeContainer = isMobile ? mobileContainerRef.current : desktopContainerRef.current;
+      const activeContent = isMobile ? mobileContentRef.current : desktopContentRef.current;
+
+      if (activeContainer && activeContent) {
+        tl.fromTo(activeContainer.querySelector('.active-backdrop'),
+          { opacity: 0 },
+          { opacity: 1, duration: 0.4 }
+        )
+          .fromTo(activeContent,
+            { opacity: 0, y: 30, scale: 0.95 },
+            { opacity: 1, y: 0, scale: 1, duration: 0.5 },
+            '-=0.2'
+          );
+      }
+    }
+  }, [showForm]);
+
+  // handleClose handler with animation
+  const handleClose = () => {
+    const isMobile = window.innerWidth < 1024;
+    const activeContainer = isMobile ? mobileContainerRef.current : desktopContainerRef.current;
+    const activeContent = isMobile ? mobileContentRef.current : desktopContentRef.current;
+
+    if (activeContainer && activeContent) {
+      const tl = gsap.timeline({
+        defaults: { ease: 'power2.in', duration: 0.3 },
+        onComplete: () => {
+          closeForm();
+          // Small delay before resetting success state to avoid flash
+          setTimeout(() => setShowSuccess(false), 100);
+        }
+      });
+
+      tl.to(activeContent, { opacity: 0, y: 20, scale: 0.95 })
+        .to(activeContainer.querySelector('.active-backdrop'), { opacity: 0 }, '-=0.2');
+    } else {
+      closeForm();
+      setShowSuccess(false);
+    }
+  };
 
   // Handle theme changes
   useEffect(() => {
@@ -114,8 +169,7 @@ const QuoteForm = () => {
 
         // Auto-close after 5 seconds
         setTimeout(() => {
-          setShowSuccess(false);
-          closeForm();
+          handleClose();
         }, 5000);
       }
     } catch (error) {
@@ -131,19 +185,24 @@ const QuoteForm = () => {
   return (
     <>
       {/* Mobile Form */}
-      <div className="lg:hidden fixed inset-0 z-[9999] flex items-center justify-center p-4">
+      <div
+        ref={mobileContainerRef}
+        className="lg:hidden fixed inset-0 z-[9999] flex items-center justify-center p-4"
+      >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-          onClick={closeForm}
+          className="active-backdrop absolute inset-0 bg-black/70 backdrop-blur-sm"
+          onClick={handleClose}
         ></div>
 
         {/* Modal Content */}
-        <div className={`relative w-full max-w-md max-h-[85vh] overflow-y-auto scrollbar-hide rounded-xl shadow-2xl transform transition-all animate-fadeIn ${isDark ? 'bg-gray-800' : 'bg-white'
-          }`}>
+        <div
+          ref={mobileContentRef}
+          className={`relative w-full max-w-md max-h-[85vh] overflow-y-auto scrollbar-hide rounded-xl shadow-2xl transform transition-all ${isDark ? 'bg-gray-800' : 'bg-white'
+            }`}>
           {/* Close Button */}
           <button
-            onClick={closeForm}
+            onClick={handleClose}
             className={`absolute top-4 right-4 z-10 p-2 rounded-full transition-colors ${isDark ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
               }`}
           >
@@ -184,14 +243,11 @@ const QuoteForm = () => {
                 </p>
                 <div className={`mt-6 p-4 rounded-xl ${isDark ? 'bg-gray-700/50' : 'bg-gray-50'}`}>
                   <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                    Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 903 300 6430</span>
+                    Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 703 908 1842</span>
                   </p>
                 </div>
                 <button
-                  onClick={() => {
-                    closeForm();
-                    setShowSuccess(false);
-                  }}
+                  onClick={handleClose}
                   className="mt-6 px-6 py-3 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all"
                 >
                   Close
@@ -344,19 +400,24 @@ const QuoteForm = () => {
       </div>
 
       {/* Desktop Form */}
-      <div className="hidden lg:flex fixed inset-0 z-[9999] items-center justify-center p-4">
+      <div
+        ref={desktopContainerRef}
+        className="hidden lg:flex fixed inset-0 z-[9999] items-center justify-center p-4"
+      >
         {/* Backdrop */}
         <div
-          className="absolute inset-0 bg-black/70 backdrop-blur-sm"
-          onClick={closeForm}
+          className="active-backdrop absolute inset-0 bg-black/70 backdrop-blur-sm"
+          onClick={handleClose}
         ></div>
 
         {/* Modal Content - Centered and proper size */}
-        <div className={`relative w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-white'
-          }`}>
+        <div
+          ref={desktopContentRef}
+          className={`relative w-full max-w-3xl rounded-2xl shadow-2xl overflow-hidden ${isDark ? 'bg-gray-800' : 'bg-white'
+            }`}>
           {/* Close Button */}
           <button
-            onClick={closeForm}
+            onClick={handleClose}
             className={`absolute top-5 right-5 z-10 p-2 rounded-full transition-colors ${isDark ? 'bg-gray-700 hover:bg-gray-600 text-white' : 'bg-gray-100 hover:bg-gray-200 text-gray-900'
               }`}
           >
@@ -398,14 +459,11 @@ const QuoteForm = () => {
                   </p>
                   <div className={`p-3 rounded-xl w-full ${isDark ? 'bg-gray-700/50' : 'bg-gray-50'}`}>
                     <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                      Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 903 300 6430</span>
+                      Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 703 908 1842</span>
                     </p>
                   </div>
                   <button
-                    onClick={() => {
-                      closeForm();
-                      setShowSuccess(false);
-                    }}
+                    onClick={handleClose}
                     className="mt-4 px-6 py-2 bg-green-500 hover:bg-green-600 text-white font-semibold rounded-full transition-all"
                   >
                     Close
@@ -624,7 +682,7 @@ const QuoteForm = () => {
               <div className={`mt-6 p-4 rounded-xl ${isDark ? 'bg-gray-800/50' : 'bg-green-100/50'}`}>
                 <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                   <strong className="block mb-1">Need help immediately?</strong>
-                  Call our support team: <span className="font-bold text-green-600">+234 903 300 6430</span>
+                  Call our support team: <span className="font-bold text-green-600">+234 703 908 1842</span>
                 </p>
               </div>
             </div>

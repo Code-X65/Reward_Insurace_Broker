@@ -124,7 +124,7 @@ const Footer = () => {
                 <div className={`text-sm ${isDark ? 'text-gray-400' : 'text-black font-medium'}`}>
                   Insurance Brokers Limited
                 </div>
-                <div className={`text-[10px] font-bold tracking-widest mt-1 ${isDark ? 'text-gray-500' : 'text-gray-400'}`}>
+                <div className={`text-[10px] font-bold tracking-widest mt-1 ${isDark ? 'text-gray-400' : 'text-black'}`}>
                   RC-208134 (General Insurance, Life & Annuity Consultants)
                 </div>
               </div>
@@ -171,7 +171,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <span>Suite 11, Canal House, CBD, Abuja</span>
+                <span>Suite 11, Canal House, Beside Veritas Kapital Assurance, Babatunde Ogala Street, Off Constitution Avenue, Central Business District, Abuja.</span>
               </div>
             </div>
           </div>
@@ -277,7 +277,7 @@ const Footer = () => {
             </p>
 
             {/* Social Links */}
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center space-x-1 cursor-pointer">
               {socialLinks.map((social) => (
                 <a
                   key={social.name}
@@ -292,7 +292,9 @@ const Footer = () => {
                 >
                   {social.icon}
                 </a>
+
               ))}
+              <a href='https://www.instagram.com/rewardsinsurancebrokers/' target="_blank" rel="noopener noreferrer">Follow us on instagram</a>
             </div>
           </div>
         </div>

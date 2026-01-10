@@ -218,7 +218,7 @@ const InsuranceHero = () => {
                 <div className="flex items-center gap-4 mb-6">
                   <div className="flex -space-x-3">
                     {selectedPartners.map((partner, i) => (
-                      <div key={i} className={`w-10 h-10 rounded-full border-2 ${isDark ? 'border-gray-900 bg-white' : 'border-white bg-white'} overflow-hidden flex items-center justify-center p-1`}>
+                      <div key={i} className={`w-10 h-10 rounded-full border-2 ${isDark ? 'border-gray-900 bg-white' : 'border-white bg-gray-100'} overflow-hidden flex items-center justify-center p-1`}>
                         <img src={partner} alt={`Partner ${i + 1}`} className="w-full h-full object-contain" />
                       </div>
                     ))}

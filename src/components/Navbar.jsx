@@ -133,8 +133,7 @@ const Navbar = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Left side - Logo and Contact Info */}
-            <div className="flex items-center space-x-8">
-              {/* Logo - Make it clickable to home */}
+            <div className="flex flex-col -space-y-1">
               <Link
                 to="/"
                 className="flex items-center space-x-2"
@@ -147,13 +146,15 @@ const Navbar = () => {
               >
                 <div className="w-10 h-10 flex items-center justify-center">
                   <img src={Logo} alt="Rewards Insurance Logo" />
-                  <p>RC-208134</p>
                 </div>
                 <div className="text-white">
-                  <div className="font-bold text-lg">Rewards</div>
-                  <div className="text-xs">Insurance Brokers Limited</div>
+                  <div className="font-bold text-lg leading-tight">Rewards</div>
+                  <div className="text-xs leading-tight opacity-90">Insurance Brokers Limited</div>
                 </div>
               </Link>
+              <div className={`text-[9px] font-bold tracking-[0.2em] ml-12 ${isDark ? 'text-gray-500' : 'text-green-300'}`}>
+                RC-208134
+              </div>
             </div>
 
             {/* Center - Navigation Links (Desktop) */}
