@@ -171,7 +171,7 @@ const Footer = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <span>Suite 11, Canal House, Beside Veritas Kapital Assurance, Babatunde Ogala Street, Off Constitution Avenue, Central Business District, Abuja.</span>
+                <span>Suite 11, Canal House, Beside Veritas Kapital Assurance, 4 Babatunde Ogala Street, Off Constitution Avenue, Central Business District, Abuja.</span>
               </div>
             </div>
           </div>

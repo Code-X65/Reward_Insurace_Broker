@@ -1,6 +1,7 @@
 import React from 'react'
 import InsuranceHero from '../components/InsuranceHero'
 import AboutUsSection from '../components/AboutUsSection'
+import StaffShowcase from '../components/StaffShowcase'
 import ClientsPartnersSection from '../components/ClientsPartnersSection'
 import ServicesSection from '../components/ServicesSection'
 import IndustriesSection from '../components/IndustriesSection'
@@ -14,6 +15,7 @@ const HomePage = () => {
       <div >
         <InsuranceHero />
         <AboutUsSection />
+        <StaffShowcase />
         <ClientsPartnersSection />
         <ServicesSection />
         <IndustriesSection />

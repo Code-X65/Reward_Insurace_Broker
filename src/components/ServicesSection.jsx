@@ -25,6 +25,25 @@ import {
   Home,
   CheckCircle
 } from 'lucide-react';
+import gsap from 'gsap';
+
+import AnnuityLifePolicy from '../assets/ServicesImges/Annuity_Life_Policy.jpg';
+import BurglaryInsurance from '../assets/ServicesImges/Burglary_Insurance.jpg';
+import CashInTransitInsurance from '../assets/ServicesImges/Cash_In_Transit_Insurance.jpg';
+import CombinedAllRiskInsurance2 from '../assets/ServicesImges/Combined_All_Risk_Insurance (2).jpg';
+import CombinedAllRiskInsurance from '../assets/ServicesImges/Combined_All_Risk_Insurance.jpg';
+import ContractorAllRiskInsurance from '../assets/ServicesImges/Contractor_All_Risk_Insurance.jpg';
+import EnergyInsurance from '../assets/ServicesImges/Energy_Insurance.jpeg';
+import EngineeringInsurance from '../assets/ServicesImges/Engineering_Insurance.jpg';
+import FidelityGuaranteeInsurance from '../assets/ServicesImges/Fidelity_Guarantee_Insurance.jpg';
+import FireAndSpecialPerils from '../assets/ServicesImges/Fire_and_special_perils.jpg';
+import GroupLifeInsurance from '../assets/ServicesImges/Group_Life_Insurance.jpg';
+import GroupPersonal from '../assets/ServicesImges/Group_Personal.jpg';
+import IndustrialAllRisk from '../assets/ServicesImges/Industrial_All_Risk.avif';
+import ProductLiabilityInsurance from '../assets/ServicesImges/Product_Liability_Insurance.webp';
+import PublicLiabilityInsurance2 from '../assets/ServicesImges/Public_Liability_Insurance 2.jpg';
+import PublicLiabilityInsurance from '../assets/ServicesImges/Public_Liability_Insurance.jpg';
+
 
 const ServicesSection = () => {
   const { openForm } = useForm();
@@ -36,7 +55,56 @@ const ServicesSection = () => {
   const lifeInsuranceRef = useRef(null);
   const nonLifeInsuranceRef = useRef(null);
   const [selectedService, setSelectedService] = useState(null);
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const modalRef = useRef(null);
+  const backdropRef = useRef(null);
+  const contentRef = useRef(null);
+
+  // Animation for Opening Modal
+  useEffect(() => {
+    if (selectedService && modalRef.current) {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+      tl.fromTo(backdropRef.current,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.4 }
+      )
+        .fromTo(modalRef.current,
+          { scale: 0.9, opacity: 0, y: 30 },
+          { scale: 1, opacity: 1, y: 0, duration: 0.5 },
+          "-=0.3"
+        )
+        .fromTo(contentRef.current?.children ?? [],
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.4, stagger: 0.1 },
+          "-=0.2"
+        );
+    }
+  }, [selectedService]);
+
+  const handleClose = () => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        setSelectedService(null);
+        setIsAnimating(false);
+      }
+    });
+
+    tl.to(modalRef.current, {
+      scale: 0.95,
+      opacity: 0,
+      y: 20,
+      duration: 0.3,
+      ease: "power2.in"
+    })
+      .to(backdropRef.current, {
+        opacity: 0,
+        duration: 0.2
+      }, "-=0.2");
+  };
 
   // Listen for theme changes
   useEffect(() => {
@@ -98,7 +166,7 @@ const ServicesSection = () => {
     {
       title: 'Group Life Insurance',
       description: 'Comprehensive employer-sponsored life coverage protecting multiple employees under one policy.',
-      image: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=1600&h=1200&fit=crop&q=90',
+      image: GroupLifeInsurance,
       icon: Users,
       features: ['Multi-Employee Coverage', 'Employer Benefits', 'Death Benefits', 'Accidental Death'],
       stats: { clients: '500+', satisfaction: '98%', employees: '50K+' },
@@ -116,7 +184,7 @@ const ServicesSection = () => {
     {
       title: 'Group Personal',
       description: 'Combined group personal accident and health coverage for organizations and their employees.',
-      image: 'https://images.unsplash.com/photo-1527613426441-4da17471b66d?w=1600&h=1200&fit=crop&q=90',
+      image: GroupPersonal,
       icon: Building2,
       features: ['Accident Coverage', 'Medical Benefits', 'Disability Protection', 'Emergency Care'],
       stats: { clients: '800+', satisfaction: '97%', members: '65K+' },
@@ -125,7 +193,7 @@ const ServicesSection = () => {
     {
       title: 'Annuity Life Policy',
       description: 'Guaranteed income for life with strategic retirement planning and wealth accumulation.',
-      image: 'https://images.unsplash.com/photo-1434626881859-194d67b2b86f?w=1600&h=1200&fit=crop&q=90',
+      image: AnnuityLifePolicy,
       icon: CircleDollarSign,
       features: ['Lifetime Income', 'Retirement Planning', 'Tax-Deferred Growth', 'Death Benefits'],
       stats: { clients: '30K+', satisfaction: '99%', income: 'Guaranteed' },
@@ -146,7 +214,7 @@ const ServicesSection = () => {
     {
       title: 'Fire and Special Perils',
       description: 'Comprehensive protection against fire, lightning, explosion, and other special perils.',
-      image: 'https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?w=1600&h=1200&fit=crop&q=90',
+      image: FireAndSpecialPerils,
       icon: Flame,
       features: ['Fire Damage', 'Lightning Strike', 'Explosion Coverage', 'Earthquake Protection'],
       stats: { clients: '85K+', satisfaction: '96%', response: '3h' },
@@ -164,7 +232,7 @@ const ServicesSection = () => {
     {
       title: 'Combined All Risk Insurance',
       description: 'All-encompassing property protection covering multiple perils under one comprehensive policy.',
-      image: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=1200&fit=crop&q=90',
+      image: CombinedAllRiskInsurance,
       icon: Building,
       features: ['Multi-Peril Coverage', 'Property Damage', 'Contents Protection', 'Business Assets'],
       stats: { clients: '50K+', satisfaction: '97%', coverage: 'Complete' },
@@ -173,7 +241,7 @@ const ServicesSection = () => {
     {
       title: 'Burglary and House Breaking Insurance',
       description: 'Protection against theft, burglary, and forced entry into your property or premises.',
-      image: 'https://images.unsplash.com/photo-1558002038-1055907df827?w=1600&h=1200&fit=crop&q=90',
+      image: BurglaryInsurance,
       icon: Lock,
       features: ['Theft Coverage', 'Break-in Protection', 'Forced Entry Damage', 'Contents Security'],
       stats: { clients: '40K+', satisfaction: '94%', response: '1h' },
@@ -191,7 +259,7 @@ const ServicesSection = () => {
     {
       title: 'Cash In Transit Insurance',
       description: 'Specialized protection for cash and valuables being transported from one location to another.',
-      image: 'https://images.unsplash.com/photo-1621981386829-9b458a2cdbde?w=1600&h=1200&fit=crop&q=90',
+      image: CashInTransitInsurance,
       icon: HandCoins,
       features: ['Cash Protection', 'Armed Robbery Cover', 'Courier Coverage', 'ATM Replenishment'],
       stats: { clients: '12K+', satisfaction: '98%', security: '24/7' },
@@ -200,7 +268,7 @@ const ServicesSection = () => {
     {
       title: 'Fidelity Guarantee Insurance',
       description: 'Protection against financial loss caused by dishonest acts of employees.',
-      image: 'https://images.unsplash.com/photo-1556742111-a301076d9d18?w=1600&h=1200&fit=crop&q=90',
+      image: FidelityGuaranteeInsurance,
       icon: Handshake,
       features: ['Employee Dishonesty', 'Fraud Protection', 'Embezzlement Cover', 'Financial Loss Recovery'],
       stats: { clients: '20K+', satisfaction: '95%', claims: 'Confidential' },
@@ -209,7 +277,7 @@ const ServicesSection = () => {
     {
       title: 'Public Liability Insurance',
       description: 'Legal protection against claims from third parties for injury or property damage.',
-      image: 'https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1600&h=1200&fit=crop&q=90',
+      image: PublicLiabilityInsurance,
       icon: Users2,
       features: ['Third Party Claims', 'Bodily Injury Cover', 'Property Damage', 'Legal Defense'],
       stats: { clients: '60K+', satisfaction: '96%', defense: '24/7' },
@@ -218,7 +286,7 @@ const ServicesSection = () => {
     {
       title: 'Product Liability Insurance',
       description: 'Coverage for manufacturers and sellers against claims arising from defective products.',
-      image: 'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=1600&h=1200&fit=crop&q=90',
+      image: ProductLiabilityInsurance,
       icon: Package,
       features: ['Product Defects', 'Consumer Injury', 'Recall Costs', 'Legal Defense'],
       stats: { clients: '15K+', satisfaction: '97%', coverage: 'International' },
@@ -227,7 +295,7 @@ const ServicesSection = () => {
     {
       title: 'Contractor All Risk Insurance',
       description: 'Comprehensive coverage for construction projects from start to completion.',
-      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=1600&h=1200&fit=crop&q=90',
+      image: ContractorAllRiskInsurance,
       icon: Construction,
       features: ['Construction Works', 'Material Damage', 'Third Party Liability', 'Equipment Coverage'],
       stats: { clients: '18K+', satisfaction: '96%', projects: '8K+' },
@@ -236,7 +304,7 @@ const ServicesSection = () => {
     {
       title: 'Engineering Insurance',
       description: 'Specialized coverage for machinery breakdown, electronic equipment, and boiler operations.',
-      image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1600&h=1200&fit=crop&q=90',
+      image: EngineeringInsurance,
       icon: Cog,
       features: ['Machinery Breakdown', 'Electronic Equipment', 'Boiler Explosion', 'Loss of Profits'],
       stats: { clients: '22K+', satisfaction: '97%', response: '4h' },
@@ -245,7 +313,7 @@ const ServicesSection = () => {
     {
       title: 'Industrial All Risk',
       description: 'Complete property and business interruption coverage for industrial operations.',
-      image: 'https://images.unsplash.com/photo-1581094271901-8022df4466f9?w=1600&h=1200&fit=crop&q=90',
+      image: IndustrialAllRisk,
       icon: Factory,
       features: ['Factory Coverage', 'Plant & Machinery', 'Stock Protection', 'Business Interruption'],
       stats: { clients: '28K+', satisfaction: '98%', coverage: 'Comprehensive' },
@@ -281,7 +349,7 @@ const ServicesSection = () => {
     {
       title: 'Energy Insurance',
       description: 'Specialized coverage for oil, gas, and renewable energy operations and infrastructure.',
-      image: 'https://images.unsplash.com/photo-1497440001374-f26997328c1b?w=1600&h=1200&fit=crop&q=90',
+      image: EnergyInsurance,
       icon: Zap,
       features: ['Oil & Gas Coverage', 'Renewable Energy', 'Pipeline Protection', 'Exploration Risk'],
       stats: { clients: '8K+', satisfaction: '97%', coverage: 'Specialized' },
@@ -460,98 +528,120 @@ const ServicesSection = () => {
 
         {/* Modal */}
         {selectedService && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 ">
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 lg:p-8">
+            {/* Backdrop */}
             <div
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-              onClick={() => setSelectedService(null)}
+              ref={backdropRef}
+              className="absolute inset-0 bg-slate-950/80 backdrop-blur-md"
+              onClick={handleClose}
             />
 
+            {/* Modal Container */}
             <div
-              className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl shadow-2xl transform transition-all duration-300 scroll-container ${isDark ? 'bg-gray-900' : 'bg-white'
-                }`}
+              ref={modalRef}
+              className={`relative w-full max-w-6xl max-h-[90vh] flex flex-col lg:flex-row rounded-[2rem] shadow-[0_35px_60px_-15px_rgba(0,0,0,0.5)] transform overflow-hidden ${isDark ? 'bg-slate-900/90' : 'bg-white/95'
+                } border ${isDark ? 'border-slate-800' : 'border-slate-200'}`}
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Header */}
-              <div className="sticky top-0 z-10">
-                <div className="relative h-48 sm:h-56 md:h-64 overflow-hidden rounded-t-2xl">
-                  <img
-                    src={selectedService.image}
-                    alt={selectedService.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
+              {/* Image Side - Interactive and Dynamic */}
+              <div className="relative h-48 sm:h-64 lg:h-auto lg:w-5/12 group shrink-0 overflow-hidden">
+                <img
+                  src={selectedService.image}
+                  alt={selectedService.title}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                />
+                {/* Overlay Gradient */}
+                <div className={`absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-r from-slate-950/60 via-transparent to-transparent`} />
 
-                  {/* Close Button */}
-                  <button
-                    onClick={() => setSelectedService(null)}
-                    className={`absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center backdrop-blur-sm ${isDark ? 'bg-white/10 hover:bg-white/20' : 'bg-black/10 hover:bg-black/20'
-                      } transition-colors`}
-                  >
-                    <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                  </button>
-                </div>
+                {/* Mobile Close Button (Glassmorphism) */}
+                <button
+                  onClick={handleClose}
+                  className="lg:hidden absolute top-4 right-4 w-10 h-10 rounded-full flex items-center justify-center bg-white/10 backdrop-blur-xl border border-white/20 text-white hover:bg-white/20 transition-all z-20"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Floating Service Badge on Image */}
+                {/* <div className="absolute bottom-6 left-6 right-6 hidden lg:block">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-green-500/20 backdrop-blur-md border border-green-500/30 text-green-400 text-sm font-bold uppercase tracking-widest">
+                    <selectedService.icon className="w-4 h-4" />
+                    Premium Protection
+                  </div>
+                </div> */}
               </div>
 
-              {/* Modal Content */}
-              <div className="p-6 sm:p-8">
-                <div className="flex items-start gap-4 mb-6">
-                  <div className={`w-16 h-16 rounded-xl flex items-center justify-center ${isDark ? 'bg-green-500/20' : 'bg-green-500/10'
+              {/* Content Side - Richer Typography & Layout */}
+              <div
+                ref={contentRef}
+                className="flex-1 p-8 sm:p-10 lg:p-14 overflow-y-auto scrollbar-hide relative flex flex-col"
+              >
+                {/* Desktop Absolute Close Button */}
+                <button
+                  onClick={handleClose}
+                  className={`hidden lg:flex absolute top-8 right-8 w-12 h-12 rounded-full items-center justify-center transition-all duration-300 ${isDark
+                    ? 'bg-slate-800/50 hover:bg-slate-700 text-slate-400 hover:text-white'
+                    : 'bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900'
+                    }`}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Header Section */}
+                <div className="space-y-4 mb-10">
+                  <div className="flex items-center gap-4">
+                    <div className={`w-14 h-14 rounded-2xl flex items-center justify-center shrink-0 ${isDark ? 'bg-green-500/20 shadow-[0_0_20px_rgba(34,197,94,0.2)]' : 'bg-green-500/10'}`}>
+                      <selectedService.icon className="w-7 h-7 text-green-500" />
+                    </div>
+                    <span className="text-sm font-bold text-green-500 uppercase tracking-widest">Service Overview</span>
+                  </div>
+                  <h2 className={`text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight ${isDark ? 'text-white' : 'text-slate-900'
                     }`}>
-                    <selectedService.icon className="w-8 h-8 text-green-500" />
-                  </div>
-                  <div>
-                    <h2 className={`text-3xl sm:text-4xl font-bold mb-2 ${isDark ? 'text-white' : 'text-gray-900'
-                      }`}>
-                      {selectedService.title}
-                    </h2>
-                    <p className={`text-lg ${isDark ? 'text-gray-300' : 'text-black'}`}>
-                      {selectedService.description}
-                    </p>
-                  </div>
+                    {selectedService.title}
+                  </h2>
+                  <p className={`text-xl font-medium leading-relaxed max-w-2xl ${isDark ? 'text-slate-300' : 'text-slate-600'
+                    }`}>
+                    {selectedService.description}
+                  </p>
                 </div>
 
-                {/* Stats */}
-                {/* <div className={`grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 p-4 rounded-xl ${
-                  isDark ? 'bg-gray-800/50' : 'bg-gray-100'
-                }`}>
-                  {Object.entries(selectedService.stats).map(([key, value]) => (
-                    <div key={key} className="text-center">
-                      <div className={`text-2xl sm:text-3xl font-bold mb-1 ${
-                        isDark ? 'text-green-400' : 'text-green-600'
-                      }`}>
-                        {value}
-                      </div>
-                      <div className={`text-xs sm:text-sm font-medium tracking-wider ${
-                        isDark ? 'text-gray-400' : 'text-gray-600'
-                      }`}>
-                        {key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1')}
-                      </div>
+                {/* Service Stats / Quick Info */}
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-12">
+                  {[
+                    { label: 'Claim Process', value: '24/7 Support', sub: 'Instant Response' },
+                    { label: 'Satisfaction', value: '98%', sub: 'Client Rating' },
+                    { label: 'Coverage', value: 'Global', sub: 'Worldwide Reach' }
+                  ].map((stat, i) => (
+                    <div key={i} className={`p-5 rounded-2xl border ${isDark ? 'bg-slate-800/30 border-slate-800' : 'bg-slate-50 border-slate-100'}`}>
+                      <div className="text-xs font-bold text-green-500 uppercase tracking-wider mb-1">{stat.label}</div>
+                      <div className={`text-xl font-bold ${isDark ? 'text-white' : 'text-slate-900'}`}>{stat.value}</div>
+                      <div className={`text-xs ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{stat.sub}</div>
                     </div>
                   ))}
-                </div> */}
+                </div>
 
-                {/* Features */}
-                <div className="mb-8">
-                  <h3 className={`text-xl font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'
-                    }`}>
-                    Key Features
+                {/* Features Section */}
+                <div className="mb-12">
+                  <h3 className={`text-2xl font-bold mb-6 flex items-center gap-3 ${isDark ? 'text-white' : 'text-slate-900'}`}>
+                    <span className="w-8 h-1 bg-green-500 rounded-full" />
+                    Exclusive Benefits
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {selectedService.features.map((feature, index) => (
                       <div
                         key={index}
-                        className={`flex items-center gap-3 p-3 rounded-lg ${isDark
-                          ? 'bg-gray-800/50 hover:bg-gray-800'
-                          : 'bg-gray-50 hover:bg-gray-100'
-                          } transition-colors`}
+                        className={`flex items-start gap-4 p-5 rounded-2xl border group transition-all duration-300 ${isDark
+                          ? 'bg-slate-800/20 border-slate-800/50 hover:border-green-500/50 hover:bg-slate-800/40'
+                          : 'bg-white border-slate-200 hover:border-green-500/50 hover:shadow-md'
+                          }`}
                       >
-                        <div className={`w-8 h-8 rounded-full flex items-center justify-center ${isDark ? 'bg-green-500/20' : 'bg-green-500/10'
-                          }`}>
-                          <CheckCircle className="w-4 h-4 text-green-500" />
+                        <div className={`w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5 ${isDark ? 'bg-green-500/20 group-hover:bg-green-500' : 'bg-green-500/10 group-hover:bg-green-500'} transition-colors`}>
+                          <CheckCircle className={`w-4 h-4 text-green-500 group-hover:text-white transition-colors`} />
                         </div>
-                        <span className={`font-medium ${isDark ? 'text-gray-300' : 'text-gray-700'}`}>
+                        <span className={`font-bold text-lg ${isDark ? 'text-slate-300 group-hover:text-white' : 'text-slate-700 group-hover:text-slate-900'}`}>
                           {feature}
                         </span>
                       </div>
@@ -559,32 +649,28 @@ const ServicesSection = () => {
                   </div>
                 </div>
 
-                {/* Detailed Description */}
-                <div className="mb-8">
-                  <h3 className={`text-xl font-semibold mb-4 ${isDark ? 'text-white' : 'text-gray-900'
-                    }`}>
-                    Overview
-                  </h3>
-                  <p className={`leading-relaxed ${isDark ? 'text-gray-300' : 'text-black'
-                    }`}>
-                    {selectedService.details}
+                {/* Detailed Narrative */}
+                <div className={`mb-16 p-8 rounded-[2rem] border ${isDark ? 'bg-slate-950/50 border-slate-800' : 'bg-slate-50 border-slate-200'}`}>
+                  <h3 className={`text-2xl font-bold mb-4 ${isDark ? 'text-white' : 'text-slate-900'}`}>Plan Logistics</h3>
+                  <p className={`text-xl leading-relaxed italic font-medium ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+                    "{selectedService.details}"
                   </p>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-700/30">
+                {/* Final Call to Action */}
+                <div className="mt-auto pt-8 border-t border-slate-800/10 flex flex-col sm:flex-row gap-5">
                   <button
                     onClick={() => {
-                      setSelectedService(null);
-                      openForm();
+                      handleClose();
+                      setTimeout(openForm, 400);
                     }}
-                    className="flex-1 px-6 py-4 rounded-xl font-semibold transition-all bg-gradient-to-r from-green-500 to-green-500 hover:shadow-lg hover:shadow-green-500/25 text-white"
+                    className="flex-[2] py-5 px-10 rounded-2xl font-black text-xl bg-gradient-to-r from-green-500 to-green-400 text-white shadow-[0_20px_40px_-10px_rgba(34,197,94,0.4)] hover:shadow-[0_25px_50px_-12px_rgba(34,197,94,0.5)] transform transition-all duration-300 hover:-translate-y-1 active:scale-[0.98]"
                   >
-                    Get Quote Now
+                    Request a  Quote
                   </button>
-                  <button className={`flex-1 px-6 py-4 rounded-xl font-semibold transition-all ${isDark
-                    ? 'bg-gray-800 hover:bg-gray-700 text-white border border-gray-700'
-                    : 'bg-white hover:bg-gray-50 text-gray-900 border border-gray-300'
+                  <button className={`flex-1 py-5 px-10 rounded-2xl font-bold text-lg border-2 transition-all duration-300 ${isDark
+                    ? 'border-slate-700 text-slate-300 hover:bg-slate-800 hover:border-slate-600 hover:text-white'
+                    : 'border-slate-200 text-slate-600 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-900'
                     }`}>
                     Download Brochure
                   </button>
@@ -593,6 +679,16 @@ const ServicesSection = () => {
             </div>
           </div>
         )}
+
+        <style jsx>{`
+          .scrollbar-hide {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+          }
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+          }
+        `}</style>
       </section>
     </div>
   );
