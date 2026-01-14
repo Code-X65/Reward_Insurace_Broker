@@ -94,7 +94,7 @@ const ContactSection = () => {
       ),
       title: 'Visit Us',
       details: [
-        'Suite 11, Canal House, Beside Veritas Kapital Assurance, 4 Babatunde Ogala Street, Off Constitution Avenue, Central Business District, Abuja.'
+        'Suite 11, Canal House, Beside Veritas Kapital Assurance, No 4 Babatunde Ogala Street, Off Constitution Avenue, Central Business District, Abuja.'
       ]
     },
     {
@@ -105,8 +105,8 @@ const ContactSection = () => {
       ),
       title: 'Call Us',
       details: [
-        '+234 805 677 0359',
-        '+234 809 220 1539'
+        '+234 703 908 1842',
+        '+234 805 677 0359'
       ]
     },
     {
