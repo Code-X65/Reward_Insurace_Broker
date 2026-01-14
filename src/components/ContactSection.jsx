@@ -105,7 +105,7 @@ const ContactSection = () => {
       ),
       title: 'Call Us',
       details: [
-        '+234 703 908 1842',
+        '+234 805 677 0359',
         '+234 809 220 1539'
       ]
     },

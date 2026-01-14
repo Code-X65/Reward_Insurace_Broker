@@ -243,7 +243,7 @@ const QuoteForm = () => {
                 </p>
                 <div className={`mt-6 p-4 rounded-xl ${isDark ? 'bg-gray-700/50' : 'bg-gray-50'}`}>
                   <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                    Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 703 908 1842</span>
+                    Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 805 677 0359</span>
                   </p>
                 </div>
                 <button
@@ -459,7 +459,7 @@ const QuoteForm = () => {
                   </p>
                   <div className={`p-3 rounded-xl w-full ${isDark ? 'bg-gray-700/50' : 'bg-gray-50'}`}>
                     <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-500'}`}>
-                      Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 703 908 1842</span>
+                      Need immediate assistance? Call us at <span className="font-bold text-green-500">+234 805 677 0359</span>
                     </p>
                   </div>
                   <button
@@ -682,7 +682,7 @@ const QuoteForm = () => {
               <div className={`mt-6 p-4 rounded-xl ${isDark ? 'bg-gray-800/50' : 'bg-green-100/50'}`}>
                 <p className={`text-xs ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
                   <strong className="block mb-1">Need help immediately?</strong>
-                  Call our support team: <span className="font-bold text-green-600">+234 703 908 1842</span>
+                  Call our support team: <span className="font-bold text-green-600">+234 805 677 0359</span>
                 </p>
               </div>
             </div>

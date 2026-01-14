@@ -146,7 +146,7 @@ const Footer = () => {
                   </svg>
                 </div>
                 <div className="flex flex-col">
-                  <span>+234 703 908 1842</span>
+                  <span>+234 805 677 0359</span>
                   <span>+234 809 220 1539</span>
                 </div>
               </div>
